@@ -33,7 +33,7 @@
 	para melhorar sua auditabilidade, que é o ponto mais questionado nesse esquema. A blockchain
 	possui propiedades intrínsecas, como a imutabilidade dos dados, e com esquemas utilizando
 	contratos inteligentes na blockchain é possui realizar a verificação dos votos de forma 
-	descentralizada e forma aberta ao público. Assim, criando um sistema que mantém as propiedades
+	descentralizada e  aberta ao público. Assim, criando um sistema que mantém as propiedades
 	citadas anteriormente, com um baixo custo e menor necessidade confiar na entidade central.
 }
 \palavrasChave{criptografia, eleições, democracia, blockchain, privacidade}
@@ -130,8 +130,29 @@
 \sumario
 
 \chapter{Introdução}
+Eleições eletrônicas tem sido usadas no Brasil por mais de 20 anos e testes recentes mostram
+que, mesmo com o desenvolvimento durante todo esse período, o atual sistema não consegue
+se mostrar realmente seguro. \cite{aranha} O maior problema com a solução proposta pelo
+Governo Brasileiro é a falta de auditabilidade, onde só é possível se voluntariar para testar
+o sistema em um ambiente controlado. Ainda durante o processo eleitoral, é necessário confiar
+cegamente no sistema, não há instrumento nenhum, que permita verificar se o voto foi
+realmente computado.
 
-Introduzo
+Uma maneira de se realizar a autencicação no sistema seria utilizando de certificados
+digitais, que são arquivos digitais, que permitem que uma pessoa seja identificada
+virtualmente, com garantia de autenticidade. Sendo no Brasil, o modelo adotado para
+gerenciar o sistema, é a Infraestrutura de Chaves Públicas Brasileira. Já na área
+da educação, há a Infraestrutura de Chaves Públicas para Ensino e Pesquisa.
+
+Para realizar a auditabilidade das votações é possível utilizar da tecnologia
+blockchain, que são bases de registro de dados distrubuídos e compartilhados,
+desta forma criando um consenso e confiança. Com essas propriedades intrínsecas,
+como a imutabilidade dos dados, é um bom sistema para manter o registro dos votos.
+
+Este trabalho visa implementar uma solução que integre todas estas partes, um sistema
+de eleição eletrônico autenticado com certificado digital, que permite ter informações
+sobre o votante de forma confiável. Realizar a verificação da eleição em uma blockchain
+para ser de forma descentralizada e pública.
 
 \section{Objetivos}
 
