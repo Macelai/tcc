@@ -23,18 +23,18 @@
 \orientador[Orientador]{Prof.\ Dr.\ Jean Everson Martina}
 
 \textoResumo{
-	As abordagens utilizadas  nos sistemas de eleição da maioria dos países continua
-	de forma manual, com cédulas na forma de papel. Que trazem problemas enormes com
-	logística e um alto custo para funcionamento. Isto acontece devido aos requisitos
-	de uma eleição segura, que deve fornecer privacidade, transparência, verificabilidade
-	e confiabilidade. Já as  abordagens eletrônicas e via internet, permanacem com desconfiança
-	sobre manter estas propiedades.
+	As abordagens utilizadas  nos sistemas de eleição da maioria dos países continuam
+	a ser realizadas de  forma manual, com cédulas na forma de papel. Tal modelo traz
+	problemas enormes de logística e um alto custo para funcionamento devido aos 
+	requisitos de uma eleição segura, que deve fornecer privacidade, transparência,
+	verificabilidade e confiabilidade. Já as  abordagens eletrônicas  via internet,
+	permanacem com desconfiança	sobre manter estas propiedades.
 	Uma possível solução para melhorar uma abordagem eletrônica seria utilizar uma blockchain
 	para melhorar sua auditabilidade, que é o ponto mais questionado nesse esquema. A blockchain
 	possui propiedades intrínsecas, como a imutabilidade dos dados, e com esquemas utilizando
-	contratos inteligentes na blockchain é possui realizar a verificação dos votos de forma 
-	descentralizada e  aberta ao público. Assim, criando um sistema que mantém as propiedades
-	citadas anteriormente, com um baixo custo e menor necessidade confiar na entidade central.
+	contratos inteligentes na blockchain é possível realizar a verificação dos votos de forma 
+	descentralizada e  aberta ao público. Assim, cria-se um sistema que mantém as propiedades
+	citadas anteriormente, com um baixo custo e menor necessidade de confiar em uma entidade central.
 }
 \palavrasChave{criptografia, eleições, democracia, blockchain, privacidade}
 
@@ -130,29 +130,31 @@
 \sumario
 
 \chapter{Introdução}
-Eleições eletrônicas tem sido usadas no Brasil por mais de 20 anos e testes recentes mostram
+
+Eleições eletrônicas têm sido usadas no Brasil por mais de 20 anos e testes recentes mostram
 que, mesmo com o desenvolvimento durante todo esse período, o atual sistema não consegue
-se mostrar realmente seguro. \cite{aranha} O maior problema com a solução proposta pelo
-Governo Brasileiro é a falta de auditabilidade, onde só é possível se voluntariar para testar
+se mostrar realmente seguro \cite{aranha}. O maior problema com a solução proposta pelo
+Governo Brasileiro é a falta de auditabilidade, em que só é possível se voluntariar para testar
 o sistema em um ambiente controlado. Ainda durante o processo eleitoral, é necessário confiar
-cegamente no sistema, não há instrumento nenhum, que permita verificar se o voto foi
+cegamente no sistema, não há instrumento nenhum que permita verificar se o voto foi
 realmente computado.
 
-Uma maneira de se realizar a autencicação no sistema seria utilizando de certificados
+Uma maneira de se realizar a autencicação no sistema seria utilizando certificados
 digitais, que são arquivos digitais, que permitem que uma pessoa seja identificada
-virtualmente, com garantia de autenticidade. Sendo no Brasil, o modelo adotado para
+virtualmente, com garantia de autenticidade \cite{pki}. Sendo no Brasil, o modelo adotado para
 gerenciar o sistema, é a Infraestrutura de Chaves Públicas Brasileira. Já na área
 da educação, há a Infraestrutura de Chaves Públicas para Ensino e Pesquisa.
 
-Para realizar a auditabilidade das votações é possível utilizar da tecnologia
+Para realizar a auditabilidade das votações, é possível utilizar da tecnologia
 blockchain, que são bases de registro de dados distrubuídos e compartilhados,
-desta forma criando um consenso e confiança. Com essas propriedades intrínsecas,
-como a imutabilidade dos dados, é um bom sistema para manter o registro dos votos.
+desta forma criando um consenso e confiança. \cite{nakamoto2012bitcoin} Com essas
+propriedades intrínsecas, como a imutabilidade dos dados, é um bom sistema para 
+manter o registro dos votos.
 
 Este trabalho visa implementar uma solução que integre todas estas partes, um sistema
-de eleição eletrônico autenticado com certificado digital, que permite ter informações
-sobre o votante de forma confiável. Realizar a verificação da eleição em uma blockchain
-para ser de forma descentralizada e pública.
+de eleição eletrônico autenticado com certificado digital que permite ter informações
+sobre o votante de forma confiável. Além disso, realizar a verificação da eleição em 
+uma blockchain de forma descentralizada e pública.
 
 \section{Objetivos}
 
@@ -161,8 +163,7 @@ online de eleição, com seu foco principal na parte de realizar auditoria e
 verificação dos votos em uma blockchain, sendo possível utilizar de um sistema
 já desenvolvido que suporte autenticação com certificado digital. Além disso,
 analisar as implicações que esse sistema teria no funcionamento e custos de
-uma eleição.
-\\
+uma eleição. \\
 
 \noindent \emph{Objetivos específicos: }
 	\begin{itemize}
@@ -177,7 +178,6 @@ uma eleição.
 		verificável para o público em geral.
 		\item Comparar e analisar as consequências do esquema.
 	\end{itemize}
-\\
 
 \noindent \emph{Escopo do trabalho:} Não se aplica ao conteúdo deste trabalho
 a análise profunda das provas de segurança do sistema utilizado como base.
