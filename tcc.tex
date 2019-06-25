@@ -1,0 +1,126 @@
+\documentclass{ufsctex/ufsctex}
+
+\usepackage[table]{xcolor}
+\usepackage{mdframed, enumitem, multirow, hhline, amssymb}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}m{#1}}
+
+\newcommand{\thatcell}[3]{
+	\multicolumn{#1}{#2}{\cellcolor{lightgray} \textbf{#3}}
+}
+
+\begin{document}
+
+\instituicao[a]{Universidade Federal de Santa Catarina}
+\departamento[o]{Departamento de Informática e Estatística}
+\curso[o]{Programa de Graduação em Ciência da Computação}
+\documento[a]{{Trabalho de Conclusão de Curso}}
+\titulo{Eleição eletrônica utlizando blockchain e certificado digital}
+\autor{Vinicius Macelai}
+\grau{Bacharel em Ciência da Computação}
+\local{Florianópolis}
+\data{01}{julho}{2019}
+\orientador[Orientador]{Prof.\ Dr.\ Jean Everson Martina}
+
+\textoResumo{
+	As abordagens utilizadas  nos sistemas de eleição da maioria dos países continuam
+	a ser realizadas de  forma manual, com cédulas na forma de papel. Tal modelo traz
+	problemas enormes de logística e um alto custo para funcionamento devido aos 
+	requisitos de uma eleição segura, que deve fornecer privacidade, transparência,
+	verificabilidade e confiabilidade. Já as  abordagens eletrônicas  via internet,
+	permanacem com desconfiança	sobre manter estas propiedades.
+	Uma possível solução para melhorar uma abordagem eletrônica seria utilizar uma blockchain
+	para melhorar sua auditabilidade, que é o ponto mais questionado nesse esquema. A blockchain
+	possui propiedades intrínsecas, como a imutabilidade dos dados, e com esquemas utilizando
+	contratos inteligentes na blockchain é possível realizar a verificação dos votos de forma 
+	descentralizada e  aberta ao público. Assim, cria-se um sistema que mantém as propiedades
+	citadas anteriormente, com um baixo custo e menor necessidade de confiar em uma entidade central.
+}
+\palavrasChave{criptografia, eleições, democracia, blockchain, privacidade}
+
+\capa{}
+\folhaderosto{}
+
+\clearpage
+
+\paginaresumo
+
+\sumario
+
+\chapter{Introdução}
+
+Eleições eletrônicas têm sido usadas no Brasil por mais de 20 anos e testes recentes mostram
+que, mesmo com o desenvolvimento durante todo esse período, o atual sistema não consegue
+se mostrar realmente seguro \cite{aranha}. O maior problema com a solução proposta pelo
+Governo Brasileiro é a falta de auditabilidade, em que só é possível se voluntariar para testar
+o sistema em um ambiente controlado. Ainda durante o processo eleitoral, é necessário confiar
+cegamente no sistema, não há instrumento nenhum que permita verificar se o voto foi
+realmente computado.
+
+Uma maneira de se realizar a autencicação no sistema seria utilizando certificados
+digitais, que são arquivos digitais, que permitem que uma pessoa seja identificada
+virtualmente, com garantia de autenticidade \cite{pki}. Sendo no Brasil, o modelo adotado para
+gerenciar o sistema, é a Infraestrutura de Chaves Públicas Brasileira. Já na área
+da educação, há a Infraestrutura de Chaves Públicas para Ensino e Pesquisa.
+
+Para realizar a auditabilidade das votações, é possível utilizar da tecnologia
+blockchain, que são bases de registro de dados distrubuídos e compartilhados,
+desta forma criando um consenso e confiança. \cite{nakamoto2012bitcoin} Com essas
+propriedades intrínsecas, como a imutabilidade dos dados, é um bom sistema para 
+manter o registro dos votos.
+
+Este trabalho visa implementar uma solução que integre todas estas partes, um sistema
+de eleição eletrônico autenticado com certificado digital que permite ter informações
+sobre o votante de forma confiável. Além disso, realizar a verificação da eleição em 
+uma blockchain de forma descentralizada e pública.
+
+\section{Motivação}
+
+\section{Pergunta de pesquisa}
+
+\section{Hipóteses}
+
+\section{Objetivo geral}
+
+\noindent \emph{Objetivo geral:} Estudar e criar uma implementação de um sistema
+online de eleição, com seu foco principal na parte de realizar auditoria e
+verificação dos votos em uma blockchain, sendo possível utilizar de um sistema
+já desenvolvido que suporte autenticação com certificado digital. Além disso,
+analisar as implicações que esse sistema teria no funcionamento e custos de
+uma eleição. \\
+
+\section{Objetivo específico}
+
+\noindent \emph{Objetivos específicos: }
+	\begin{itemize}
+		\item Analisar o estado da arte: estudar as principais soluções
+		já propostas na literatura, com o objetivo de identificar problemas
+		e oportunidades para melhorar o trabalho.
+		\item Implementar autenticação com certificado digital: Utilizar
+		de um sistema já existente de votação e implementar a possiblidade
+		de autenticar via certificado.
+		\item Implementar possibilidade de verificação na blockchain:
+		Implementar um sistema para tornar o sistema mais auditável e 
+		verificável para o público em geral.
+		\item Comparar e analisar as consequências do esquema.
+	\end{itemize}
+
+\section{Metodologia}
+
+O trabalho será desenvolvido utilizando a infraestrutura e recursos do
+Laborarório de Segurança em Computação (LabSEC/UFSC), onde será estudada
+a bibliografia referente aos assuntos abordados nesta pesquisa, visando
+encontrar uma abordagem para um sistema de eleição eletrônica utilizando
+certificação digital juntamente com blockchain. Frisando suas vantagens e
+desvantanges juntamente com seus custos.
+
+\section{Resultados esperados}
+
+\section{Descrição do trabalho}
+
+
+
+\bibliographystyle{abnt-alf}
+\bibliography{ref}
+
+\end{document}
