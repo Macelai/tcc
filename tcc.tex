@@ -3,12 +3,6 @@
 \usepackage[table]{xcolor}
 \usepackage{mdframed, enumitem, multirow, hhline, amssymb}
 
-\newcolumntype{P}[1]{>{\centering\arraybackslash}m{#1}}
-
-\newcommand{\thatcell}[3]{
-	\multicolumn{#1}{#2}{\cellcolor{lightgray} \textbf{#3}}
-}
-
 \begin{document}
 
 \instituicao[a]{Universidade Federal de Santa Catarina}
@@ -22,7 +16,7 @@
 \data{01}{julho}{2019}
 \orientador[Orientador]{Prof.\ Dr.\ Jean Everson Martina}
 
-\textoResumo{
+\textoResumo {
 	As abordagens utilizadas  nos sistemas de eleição da maioria dos países continuam
 	a ser realizadas de  forma manual, com cédulas na forma de papel. Tal modelo traz
 	problemas enormes de logística e um alto custo para funcionamento devido aos 
@@ -82,9 +76,9 @@ podem processar os votos de maneira decentralizadas junto com a criptografia hom
 para garantir o anonimato.
 
 Neste trabalho foi optado por enfatizar o estudo e a utilização da blockchain e protocolo
-Ethereum, a qual fornece contratos inteligentes de alto nível. É apresentado um esquema
-que utliza esses contratos para garantir as propriedades já ditas, além do estudo de seu
-impacto financeiro.
+Ethereum, a qual fornece contratos inteligentes de alto nível \cite{ethereum}.
+É apresentado um esquema que utliza esses contratos para garantir as propriedades já ditas,
+além do estudo de seu impacto financeiro.
 
 Este trabalho visa implementar uma solução que integre todas estas partes, um sistema
 de eleição eletrônico autenticado com certificado digital que permite ter informações
@@ -93,22 +87,50 @@ uma blockchain de forma descentralizada e pública.
 
 \section{Motivação}
 
+Os modelos de eleição utilizados nos dias de hoje são na grande parte em cédulas
+de papel. Dependendo do tamanho da votação, isso externaliza grandes problemas,
+como na parte de logística, que tem como consequência um aumento de custos. Já
+as abordagens que utilizam do meio eletrônico e online, geram grande desconfiança
+na maioria das partes interessadas, com receio que o resultado seja hackeado
+e alterado. Consequentemente há uma demanda por um modelo de votação que seja
+mais auditável e aberto para sanar esse problema de desconfiança.
+
+\section{Justificativa}
+
+Este tema foi escolhido devido sua grande importância, ele impacta basicamente
+todos os setores da sociedade, pois existem votações nas mais diversas esferas,
+desde a governança de empresas, até consultas de opinião sobre assuntos delicados.
+Além da inovação em utilizar a recente tecnologia blockchain para lidar com o problema.
+Este trabalho visa contribuir com modelos mais eficientes e transparentes, que
+beneficiarão a sociedade como um todo.
+
 \section{Pergunta de pesquisa}
+
+Este trabalho visa responder se é possível construir um modelo de eleição
+eletrônica utlizando a blockchain para garantir uma maior auditabilidade
+do sistema. Além de responder se seria viável utiliza-lo na pŕatica devido
+ao volume de dados e o custo da votação.
 
 \section{Hipóteses}
 
+\begin{itemize}
+	\item É possível criar um modelo eleição eletrônica utilizando blockchain
+		para forncer maior auditabilidade.
+	\item É viável utilizar a blockchain Ethereum até qual volume dados.
+	\item É economicamente viável esse modelo.
+\end{itemize}
+
 \section{Objetivo geral}
 
-Estudar e criar uma implementação de um sistema
-online de eleição, com seu foco principal na parte de realizar auditoria e
-verificação dos votos em uma blockchain, sendo possível utilizar de um sistema
-já desenvolvido que suporte autenticação com certificado digital. Além disso,
-analisar as implicações que esse sistema teria no funcionamento e custos de
-uma eleição. \\
+Estudar e criar uma implementação de um sistema online de eleição, com seu foco
+principal na parte de realizar auditoria e verificação dos votos em blockchain
+com auxílio de contratos inteligentes, sendo utlizado de um sistema já desenvolvido
+que suporte autenticação com certificado digital. Além disso, analisar as implicações
+que esse sistema teria no funcionamento e custos de uma eleição. \\
 
 \section{Objetivo específico}
 
-\begin{itemize}
+\begin{enumerate}[label=\roman*.]
 	\item Analisar o estado da arte: estudar as principais soluções
 	já propostas na literatura, com o objetivo de identificar problemas
 	e oportunidades para melhorar o trabalho.
@@ -119,7 +141,7 @@ uma eleição. \\
 	Implementar um sistema para tornar o sistema mais auditável e 
 	verificável para o público em geral.
 	\item Comparar e analisar as consequências do esquema.
-\end{itemize}
+\end{enumerate}
 
 \section{Metodologia}
 
@@ -127,13 +149,26 @@ O trabalho será desenvolvido utilizando a infraestrutura e recursos do
 Laborarório de Segurança em Computação (LabSEC/UFSC), onde será estudada
 a bibliografia referente aos assuntos abordados nesta pesquisa, visando
 encontrar uma abordagem para um sistema de eleição eletrônica utilizando
-certificação digital juntamente com blockchain. Frisando suas vantagens e
-desvantanges juntamente com seus custos.
+certificação digital juntamente com blockchain e contratos inteligentes.
+Frisando suas vantagens e desvantanges juntamente com seus custos.
 
 \section{Resultados esperados}
 
+Espera-se
+
 \section{Descrição do trabalho}
 
+Trabalho mto top
+
+\chapter{Fundamentação teórica}
+
+\section{Criptografia homomórfica}
+
+\section{Blockchain}
+
+\section{Contratos inteligentes}
+
+\section{Helios}
 
 
 \bibliographystyle{abnt-alf}
