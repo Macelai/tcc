@@ -30,7 +30,7 @@
 	descentralizada e  aberta ao público. Assim, cria-se um sistema que mantém as propiedades
 	citadas anteriormente, com um baixo custo e menor necessidade de confiar em uma entidade central.
 }
-\palavrasChave{criptografia, eleições, democracia, blockchain, privacidade}
+\palavrasChave{criptografia, eleições, democracia, blockchain, contratos inteligentes}
 
 \capa{}
 \folhaderosto{}
@@ -91,7 +91,7 @@ Os modelos de eleição utilizados nos dias de hoje são na grande parte em céd
 de papel. Dependendo do tamanho da votação, isso externaliza grandes problemas,
 como na parte de logística, que tem como consequência um aumento de custos. Já
 as abordagens que utilizam do meio eletrônico e online, geram grande desconfiança
-na maioria das partes interessadas, com receio que o resultado seja hackeado
+para a maioria das partes interessadas, com receio que o resultado seja hackeado
 e alterado. Consequentemente há uma demanda por um modelo de votação que seja
 mais auditável e aberto para sanar esse problema de desconfiança.
 
@@ -108,8 +108,8 @@ beneficiarão a sociedade como um todo.
 
 Este trabalho visa responder se é possível construir um modelo de eleição
 eletrônica utlizando a blockchain para garantir uma maior auditabilidade
-do sistema. Além de responder se seria viável utiliza-lo na pŕatica devido
-ao volume de dados e o custo da votação.
+do sistema. Além de responder até qual volume de dados seria possível processar
+em contratos inteligentes na blockchain, juntamente com o cálculo ecônomico.
 
 \section{Hipóteses}
 
@@ -137,7 +137,7 @@ que esse sistema teria no funcionamento e custos de uma eleição. \\
 	\item Implementar autenticação com certificado digital: Utilizar
 	de um sistema já existente de votação e implementar a possiblidade
 	de autenticar com certificado digital.
-	\item Implementar possibilidade de verificação na blockchain:
+	\item Implementar possibilidade de verificação na blockchain
 	Implementar um sistema para tornar o sistema mais auditável e 
 	verificável para o público em geral.
 	\item Comparar e analisar as consequências do esquema.
@@ -154,11 +154,14 @@ Frisando suas vantagens e desvantanges juntamente com seus custos.
 
 \section{Resultados esperados}
 
-Espera-se
-
-\section{Descrição do trabalho}
-
-Trabalho mto top
+Espera-se contribuir para o estado da arte em eleição eletrônica utilizando
+blockchain, de uma forma que aumente a transparência e a auditabilidade do
+processo. É esperado também que tal abordagem tenha um gargalo no volume de
+dados processado, visto que a tecnologia blockchain por ser descentralizada,
+não irá conseguir processar diversas transações por segundo. Além de que,
+como há muito processamento de dados, devido a criptografia homomórfica,
+tende a ser inviável economicamente para casos onde não há necessidade de
+tanta segurança.
 
 \chapter{Fundamentação teórica}
 
