@@ -5,7 +5,6 @@ all: tcc.pdf
 	bibtex $*.aux
 	pdflatex $^
 	pdflatex $^
-	firefox tcc.pdf
 
 clean:
 	rm -f *.aux *.bbl *.blg *.log *.out *.toc
