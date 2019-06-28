@@ -8,7 +8,7 @@
 \instituicao[a]{Universidade Federal de Santa Catarina}
 \departamento[o]{Departamento de Informática e Estatística}
 \curso[o]{Programa de Graduação em Ciência da Computação}
-\documento[a]{{Trabalho de Conclusão de Curso}}
+\documento[o]{{Trabalho de Conclusão de Curso}}
 \titulo{Eleição eletrônica utlizando blockchain e certificado digital}
 \autor{Vinicius Macelai}
 \grau{Bacharel em Ciência da Computação}
@@ -21,16 +21,17 @@
 	problemas enormes de logística e um alto custo para funcionamento devido aos 
 	requisitos de uma eleição segura, que deve fornecer privacidade, transparência,
 	verificabilidade e confiabilidade. Já as  abordagens eletrônicas  via internet,
-	permanacem com desconfiança	sobre manter estas propiedades.
+	ainda carregam desconfiança	sobre manter estas propriedades.
 	Uma possível solução para melhorar uma abordagem eletrônica seria utilizar uma blockchain
 	para melhorar sua auditabilidade, que é o ponto mais questionado nesse esquema. A blockchain
-	possui propiedades intrínsecas, como a imutabilidade dos dados, e com esquemas utilizando
+	possui propriedades intrínsecas, como a imutabilidade dos dados, e com esquemas utilizando
 	contratos inteligentes na blockchain é possível realizar a verificação dos votos de forma 
 	descentralizada e  aberta ao público. Assim, cria-se um sistema que mantém as propiedades
 	citadas anteriormente, com um baixo custo e menor necessidade de confiar em uma entidade central.}
 \palavrasChave{criptografia, eleições, democracia, blockchain, contratos inteligentes}
 
 \capa{}
+
 \folhaderosto{}
 
 \clearpage
@@ -40,11 +41,11 @@
 \sumario{}
 
 \chapter{Introdução}
-Ainda que vivemos no momento onde tudo é digital e fazemos as mais diversas tarefas de maneira
+Ainda que vivamos no momento onde tudo é digital e façamos as mais diversas tarefas de maneira
 eletrônica e online, quando o assunto é votação no meio eletrônico, existem as mais diversas e
 controversas opiniões a respeito.
 
-No Brasil eleições eletrônicas têm sido utlizadas por mais de 20 anos e testes recentes mostram
+No Brasil, eleições eletrônicas têm sido utlizadas por mais de 20 anos e testes recentes mostram
 que, mesmo com o desenvolvimento durante todo esse período, o atual sistema não consegue
 se mostrar realmente seguro\cite{aranha}. O maior problema com a solução proposta pelo
 Governo Brasileiro é a falta de auditabilidade, em que só é possível se voluntariar para testar
@@ -54,11 +55,11 @@ realmente computado.
 
 Os sistemas de votação eletrônicos atuais se baseiam em esquemas que utilizam de criptografia
 homomórfica, que permite que dados cifrados possam ser processados sem serem decifrados, assim
-garantidos propriedades importantes para o sistema.\cite{springer}. Entretanto, esses esquemas
-são utilizados de forma centralizada, rodando apenas em um servidor central, sem a possiblidade
-de tais informações serem acessadas para o público em geral de maneira transparente.
+garantindo propriedades importantes para o sistema.\cite{springer}. Entretanto, esses esquemas
+são utilizados de forma centralizada, rodando apenas em um servidor central, sem a possibilidade
+de tais informações serem acessadas pelo o público em geral de maneira transparente.
 
-Uma maneira de se realizar a autencicação no sistema seria utilizando certificado
+Uma maneira de se realizar a autenticação no sistema seria utilizando certificado
 digital, que são arquivos digitais, que permite que uma pessoa seja identificada
 virtualmente, com garantia de autenticidade\cite{pki}. Sendo no Brasil, o modelo adotado para
 gerenciar o sistema, a Infraestrutura de Chaves Públicas Brasileira (ICPBrasil). Já na área
@@ -67,27 +68,27 @@ pode ser utilizada em votações no âmbito acadêmico.
 
 Para realizar a auditoria das votações, é possível utilizar da tecnologia
 blockchain, que são bases de registro de dados distrubuídos e compartilhados,
-desta forma criando um consenso e confiança.\cite{nakamoto2012bitcoin} Com essas
-propriedades intrínsecas, como a imutabilidade dos dados, é um bom sistema para 
-manter o registro dos votos, além da possiblidade de rodar contratos inteligentes que
-podem processar os votos de maneira decentralizadas junto com a criptografia homomórfica
-para garantir o anonimato.
+desta forma criando um consenso e confiança sobre o estado atual do sistema.\cite{nakamoto2012bitcoin}.
+Garantir essas propriedades intrínsecas, como a imutabilidade dos
+dados, é um bom sistema para manter o registro dos votos, além da possiblidade de rodar
+contratos inteligentes que podem processar os votos de maneira descentralizadas junto
+com a criptografia homomórfica para garantir o anonimato.
 
-Neste trabalho foi optado por enfatizar o estudo e a utilização da blockchain e protocolo
+Neste trabalho, optou-se por enfatizar o estudo e a utilização da blockchain e protocolo
 Ethereum, a qual fornece contratos inteligentes de alto nível\cite{ethereum}.
-É apresentado um esquema que utliza esses contratos para garantir as propriedades já ditas,
+É apresentado um esquema que utiliza esses contratos para garantir as propriedades já citadas,
 além do estudo de seu impacto financeiro.
 
 Este trabalho visa implementar uma solução que integre todas estas partes, um sistema
 de eleição eletrônico autenticado com certificado digital que permite ter informações
-sobre o votante de forma confiável. Além disso, realizar a verificação da eleição em 
-uma blockchain de forma descentralizada e pública.
+sobre o votante de forma confiável. Além disso, possibilitar a realização da verificação
+da eleição em uma blockchain de forma descentralizada e pública.
 
 \section{Motivação}
 
-Os modelos de eleição utilizados nos dias de hoje são na grande parte em cédulas
-de papel. Dependendo do tamanho da votação, isso externaliza grandes problemas,
-como na parte de logística, que tem como consequência um aumento de custos. Já
+Os modelos de eleição utilizados nos dias de hoje são em sua maioria em cédulas
+de papel. Dependendo da dimensão da votação, isso externaliza grandes problemas,
+no que concerne a logística, que tem como consequência um aumento de custos. Já
 as abordagens que utilizam do meio eletrônico e online, geram grande desconfiança
 para a maioria das partes interessadas, com receio que o resultado seja hackeado
 e alterado. Consequentemente há uma demanda por um modelo de votação que seja
@@ -95,12 +96,13 @@ mais auditável e aberto para sanar esse problema de desconfiança.
 
 \section{Justificativa}
 
-Este tema foi escolhido devido sua grande importância, ele impacta basicamente
+Este tema foi escolhido devido sua grande importância, que impacta basicamente
 todos os setores da sociedade, pois existem votações nas mais diversas esferas,
 desde a governança de empresas, até consultas de opinião sobre assuntos delicados.
-Além da inovação em utilizar a recente tecnologia blockchain para lidar com o problema.
-Este trabalho visa contribuir com modelos mais eficientes e transparentes, que
-beneficiarão a sociedade como um todo.
+Além dos pontos anteriores citados, a utilização da recente tecnologia blockchain
+para a solução destes problemas é uma grande inovação na área. Este trabalho visa
+contribuir com modelos mais eficientes e transparentes, que beneficiarão a sociedade
+como um todo.
 
 \section{Pergunta de pesquisa}
 
@@ -112,7 +114,7 @@ em contratos inteligentes na blockchain, juntamente com o cálculo ecônomico.
 \section{Hipóteses}
 
 \begin{itemize}
-	\item É possível criar um modelo eleição eletrônica utilizando blockchain
+	\item É possível criar um modelo de eleição eletrônica utilizando blockchain
 		para forncer maior auditabilidade.
 	\item É viável utilizar a blockchain Ethereum até qual volume dados.
 	\item É economicamente viável esse modelo.
@@ -120,9 +122,9 @@ em contratos inteligentes na blockchain, juntamente com o cálculo ecônomico.
 
 \section{Objetivo geral}
 
-Estudar e criar uma implementação de um sistema online de eleição, com seu foco
+Estudar e criar a implementação de um sistema online de eleição, com foco
 principal na parte de realizar auditoria e verificação dos votos em blockchain
-com auxílio de contratos inteligentes, sendo utlizado de um sistema já desenvolvido
+com auxílio de contratos inteligentes, utilizando um sistema já desenvolvido
 que suporte autenticação com certificado digital. Além disso, analisar as implicações
 que esse sistema teria no funcionamento e custos de uma eleição. \\
 
@@ -130,13 +132,13 @@ que esse sistema teria no funcionamento e custos de uma eleição. \\
 
 \begin{enumerate}[label=\roman*.]
 	\item Analisar o estado da arte: estudar as principais soluções
-	já propostas na literatura, com o objetivo de identificar problemas
+	já propostas na literatura com o objetivo de identificar problemas
 	e oportunidades para melhorar o trabalho.
 	\item Implementar autenticação com certificado digital: Utilizar
 	de um sistema já existente de votação e implementar a possiblidade
 	de autenticar com certificado digital.
 	\item Implementar possibilidade de verificação na blockchain
-	Implementar um sistema para tornar o sistema mais auditável e 
+	Implementar um módulo para tornar o sistema mais auditável e 
 	verificável para o público em geral.
 	\item Comparar e analisar as consequências do esquema.
 \end{enumerate}
@@ -144,7 +146,7 @@ que esse sistema teria no funcionamento e custos de uma eleição. \\
 \section{Metodologia}
 
 O trabalho será desenvolvido utilizando a infraestrutura e recursos do
-Laborarório de Segurança em Computação (LabSEC/UFSC), onde será estudada
+Laborarório de Segurança em Computação (LabSEC/UFSC), em que será estudada
 a bibliografia referente aos assuntos abordados nesta pesquisa, visando
 encontrar uma abordagem para um sistema de eleição eletrônica utilizando
 certificação digital juntamente com blockchain e contratos inteligentes.
@@ -153,10 +155,10 @@ Frisando suas vantagens e desvantanges juntamente com seus custos.
 \section{Resultados esperados}
 
 Espera-se contribuir para o estado da arte em eleição eletrônica utilizando
-blockchain, de uma forma que aumente a transparência e a auditabilidade do
+blockchain de forma que aumente a transparência e a auditabilidade do
 processo. É esperado também que tal abordagem tenha um gargalo no volume de
-dados processado, visto que a tecnologia blockchain por ser descentralizada,
-não irá conseguir processar diversas transações por segundo. Além de que,
+dados processados, visto que a tecnologia blockchain por ser descentralizada,
+não conseguirá processar diversas transações por segundo. Além de que,
 como há muito processamento de dados, devido a criptografia homomórfica,
 tende a ser inviável economicamente para casos onde não há necessidade de
 tanta segurança.
