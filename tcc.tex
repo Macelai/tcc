@@ -1,7 +1,8 @@
 \documentclass{ufsctex/ufsctex}
 
 \usepackage[table]{xcolor}
-\usepackage{mdframed, enumitem, multirow, hhline, amssymb}
+\usepackage{graphicx, mdframed, enumitem, multirow, hhline, amssymb}
+\graphicspath{{./images/}}
 
 \begin{document}
 
@@ -167,6 +168,18 @@ tanta segurança.
 
 \section{Criptografia homomórfica}
 
+A ideia de usar homomorfismo na criptografia surgiu em um paper publicado
+com o objetivo de propor um criptossistema onde com o aumento da utilização
+de terminais remotos, não seria o ideal ter acesso a todo o banco de dados
+cifrados e então decifra-los para trabalhar os dados. Então surge o conceito
+de se conseguir operar com dados cifrados.\cite{homomorphic}
+
+O nome criptografia homomórfica é derivado do conceito de homomorfismo em
+algébra abstrata, um homomorfismo é uma aplicação que preserva a estrutura
+entre duas estruturas algébricas X e Y.
+
+${f} : X \longrightarrow Y$
+
 \section{Blockchain}
 
 Da sua tradução literal, blockchain significa cadeia de blocos, numa maneira
@@ -188,11 +201,16 @@ de participar da rede, basta o interessado ter acesso a internet que ele poderá
 realizar a sua cópia da base de dados.\cite{blockchain}
 
 \subsection{Cadeia de blocos}
-Colocar uma foto maneira\cite{Antonopoulos}
 
-\section{Contratos inteligentes}
+A cadeia de blocos é formado por vários blocosc
+\cite{Antonopoulos}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{blockchain}
+	\caption{Imagem tirada do whitepaper do Bitcoin}
+	\label{fig:blockchain}
+\end{figure}
 
-\section{Helios}
 
 
 \bibliographystyle{abnt-alf}
