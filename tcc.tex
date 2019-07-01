@@ -1,7 +1,7 @@
 \documentclass{ufsctex/ufsctex}
 
 \usepackage[table]{xcolor}
-\usepackage{graphicx, mdframed, enumitem, multirow, hhline, amssymb}
+\usepackage{graphicx, mdframed, enumitem, multirow, hhline, amssymb, amsmath}
 \graphicspath{{./images/}}
 
 \begin{document}
@@ -36,6 +36,10 @@
 \folhaderosto{}
 
 \clearpage
+
+\listadefiguras{}
+
+\listadeabreviaturas{}
 
 \paginaresumo{}
 
@@ -178,7 +182,17 @@ O nome criptografia homomórfica é derivado do conceito de homomorfismo em
 algébra abstrata, um homomorfismo é uma aplicação que preserva a estrutura
 entre duas estruturas algébricas X e Y.
 
-${f} : X \longrightarrow Y$
+\begin{equation}
+{f} : X \longrightarrow Y
+\end{equation}
+
+Seja $\alpha$ uma função de ciframento e $\beta$ uma função de desencriptação
+correspondente. Sejam $x1$, $x2$ dados em texto plano. A tupla ($\alpha$, $\beta$)
+é uma cifra homomórfica com o operador $\star$ se a proprieade for satisfeita:
+
+\begin{equation}
+\beta (\alpha(x1)) \star (\alpha(x2)) = x1 \star x2
+\end{equation}
 
 \section{Blockchain}
 
@@ -202,8 +216,40 @@ realizar a sua cópia da base de dados.\cite{blockchain}
 
 \subsection{Cadeia de blocos}
 
-A cadeia de blocos é formado por vários blocosc
-\cite{Antonopoulos}
+A estrutura de um bloco é basicamente a seguinte:
+\begin{itemize}
+	\item Constante de valor 0xD9B4BEF9.
+	\item Tamanho do bloco em \textit{bytes}.
+	\item Cabeçalho do bloco, que consiste em 6 itens.
+	\item Quantidade de transações no bloco.
+	\item Transações em si.
+\end{itemize}
+
+Vale notar aqui que as transações detêm de uma estrutura de dados que permite a criação
+de \textit{scripts}, além de permitir a inserção de dados arbitrários. \\
+
+Já a estrutra do cabeçalho do bloco:
+\begin{itemize}
+	\item Versão do bloco.
+	\item \textit{Hash} do bloco anterior.
+	\item \textit{Hash} do bloco atual, baseado em todas as transações do bloco.
+	\item \textit{Timestamp} em que o bloco foi criado.
+	\item \textit{Nonce}, número aleatório que é utilizado na mineração dos blocos.
+	\item \textit{Bits}, objetivo atual da mineração em formato compactado.
+\end{itemize}
+
+Esta estrutura de dados permite que qualquer participante da rede possa validar o
+bloco de maneira rápida. Existe o desafio matemático para a criação de blocos, isto é,
+para criar um novo bloco, ele deve calcular um \textit{Hash} com uma pseudo colisão de acordo
+com a variável \textit{Bits} do cabeçalho. Resolver esse desafio matemático é chamado
+de mineração, e a cada bloco que passa ele se torna mais difícil, entretanto, uma vez
+que sua solução é conhecida, é extremamente fácil de validar sua corretude. Há diversas
+soluções possíveis para determinado bloco, porém basta apenas uma ser resolvida.\cite{Antonopoulos}
+
+Como a mineração de blocos se torna cada vez mais difícil, a probabilidade de algum
+atacante conseguir reescrever um bloco anterior é mínima. Visto que ele teria que concluir
+o desafio matemático para o bloco que deseja modificar e ainda todos os sucessores dele.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{blockchain}
@@ -211,7 +257,22 @@ A cadeia de blocos é formado por vários blocosc
 	\label{fig:blockchain}
 \end{figure}
 
+\section{Contratos inteligentes}
 
+Já no surgimento da blockchain descrito no protocolo do Bitcoin, havia espaço para 
+criação \textit{scripts} nas transações. Porém estes \textit{scripts} foram concebidos
+para serem simples, com a ideia de não sobrecarregar a rede com a execução de códigos
+complexos. Um exemplo de \textit{script} trivial seria o congelamento de fundos até
+certa data futura. Como não é permitido \textit{loops} em sua estrutura, isto impacta
+na não Turing completude da linguagem de \textit{script}.\cite{nakamoto2012bitcoin}
+
+Com o desejo de se ter \textit{scripts} mais potentes foi criado o conceito de contratos
+inteligentes que são Turing-completos e ainda guardam o estado atual do sistema.
+\cite{ethereum}
+
+Desta forma é possível criar aplicações que rodam de forma descentralizada e que podem
+ter seu estado atual verificado por qualquer participante do sistema em qualquer dado
+momento. Ainda garantindo as propriedades da blockchain.
 
 \bibliographystyle{abnt-alf}
 \bibliography{ref}
