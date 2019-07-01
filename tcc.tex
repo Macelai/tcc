@@ -81,19 +81,19 @@ com a criptografia homomórfica para garantir o anonimato.
 
 Neste trabalho, optou-se por enfatizar o estudo e a utilização da blockchain e protocolo
 Ethereum, a qual fornece contratos inteligentes de alto nível\cite{ethereum}.
-É apresentado um esquema que utiliza esses contratos para garantir as propriedades já citadas,
+Apresenta-se um esquema que utiliza esses contratos para garantir as propriedades já citadas,
 além do estudo de seu impacto financeiro.
 
-Este trabalho visa implementar uma solução que integre todas estas partes, um sistema
+Ainda, visa implementar uma solução que integre todas estas partes, um sistema
 de eleição eletrônico autenticado com certificado digital que permite ter informações
-sobre o votante de forma confiável. Além disso, possibilitar a realização da verificação
+sobre o votante de forma confiável. Além disso, almeja posibilitar a realização da verificação
 da eleição em uma blockchain de forma descentralizada e pública.
 
 \section{Motivação}
 
 Os modelos de eleição utilizados nos dias de hoje são em sua maioria em cédulas
 de papel. Dependendo da dimensão da votação, isso externaliza grandes problemas,
-no que concerne a logística, que tem como consequência um aumento de custos. Já
+no que concerne à logística, que tem como consequência um aumento de custos. Já
 as abordagens que utilizam do meio eletrônico e online, geram grande desconfiança
 para a maioria das partes interessadas, com receio que o resultado seja hackeado
 e alterado. Consequentemente há uma demanda por um modelo de votação que seja
@@ -101,7 +101,7 @@ mais auditável e aberto para sanar esse problema de desconfiança.
 
 \section{Justificativa}
 
-Este tema foi escolhido devido sua grande importância, que impacta basicamente
+Este tema foi escolhido devido sua grande importância, uma uma vez impacta basicamente
 todos os setores da sociedade, pois existem votações nas mais diversas esferas,
 desde a governança de empresas, até consultas de opinião sobre assuntos delicados.
 Além dos pontos anteriores citados, a utilização da recente tecnologia blockchain
@@ -142,8 +142,8 @@ que esse sistema teria no funcionamento e custos de uma eleição. \\
 	\item Implementar autenticação com certificado digital: Utilizar
 	de um sistema já existente de votação e implementar a possiblidade
 	de autenticar com certificado digital.
-	\item Implementar possibilidade de verificação na blockchain
-	Implementar um módulo para tornar o sistema mais auditável e 
+	\item Implementar possibilidade de verificação na blockchain:
+	Criação de  um módulo para tornar o sistema mais auditável e 
 	verificável para o público em geral.
 	\item Comparar e analisar as consequências do esquema.
 \end{enumerate}
@@ -155,7 +155,7 @@ Laborarório de Segurança em Computação (LabSEC/UFSC), em que será estudada
 a bibliografia referente aos assuntos abordados nesta pesquisa, visando
 encontrar uma abordagem para um sistema de eleição eletrônica utilizando
 certificação digital juntamente com blockchain e contratos inteligentes.
-Frisando suas vantagens e desvantanges juntamente com seus custos.
+Frisando suas vantagens e desvantanges e seus custos.
 
 \section{Resultados esperados}
 
@@ -172,14 +172,15 @@ tanta segurança.
 
 \section{Criptografia homomórfica}
 
-A ideia de usar homomorfismo na criptografia surgiu em um paper publicado
-com o objetivo de propor um criptossistema onde com o aumento da utilização
-de terminais remotos, não seria o ideal ter acesso a todo o banco de dados
-cifrados e então decifra-los para trabalhar os dados. Então surge o conceito
-de se conseguir operar com dados cifrados.\cite{homomorphic}
+A ideia de usar homomorfismo na criptografia surgiu em um trabalho científico
+publicado com o objetivo de propor um criptossistema em um cenário de aumento da utilização
+de terminais remotos. Neste caso, não seria ideal ter acesso a todo o banco de dados
+cifrados e então decifra-los para trabalhar os dados. Neste contexto, surge o conceito
+de se operar com dados cifrados e obter-se o mesmo resultado caso se estivesse operando em
+texto plano.\cite{homomorphic}
 
 O nome criptografia homomórfica é derivado do conceito de homomorfismo em
-algébra abstrata, um homomorfismo é uma aplicação que preserva a estrutura
+algébra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura
 entre duas estruturas algébricas X e Y.
 
 \begin{equation}
@@ -196,21 +197,21 @@ correspondente. Sejam $x1$, $x2$ dados em texto plano. A tupla ($\alpha$, $\beta
 
 \section{Blockchain}
 
-Da sua tradução literal, blockchain significa cadeia de blocos, numa maneira
-simplista pode ser definido como cada bloco está ligado com o anterior, gerando
+Da sua tradução literal, blockchain significa cadeia de blocos. De  maneira
+simplista, pode ser definido como um bloco ligado com o anterior, gerando
 assim uma cadeia. Estes blocos carregam as informações que são importantes para
-a rede, no caso de uma criptomoeda como Bitcoin, cada bloco teria dados sobre
+a rede. No caso de uma criptomoeda como \textit{Bitcoin}, cada bloco teria dados sobre
 as transações realizadas naquele dado instante, ou seja, uma definição do estado
 atual do sistema.
 
 A concepção da blockchain foi feita para ser um encadeamento de registros imutáveis,
 distribuídos e públicos. Os registros são imutáveis devido ao tipo de encadeamento
-que é feito com os blocos, onde o ponteiro para o bloco anterior é projetado para
+que é feito com os blocos, em que o ponteiro para o bloco anterior é projetado para
 garantir a imutabilidade dos dados. Como é um protocolo distribuído, todas as
-informações não estão armezenadas em um sevidor central, não há um nodo mestre que
+informações não estão armezenadas em um sevidor central e não há um nodo mestre que
 coordene a rede. Justamente o oposto disso, a blockchain está replicada em todos os nodos
-participantes da rede, que podem estar espalhadas pelo mundo inteiro. Além de ser um
-esquema distribuído, o mesmo também é público, pois não há como censurar uma parte
+participantes da rede, que podem estar espalhados pelo mundo inteiro. Além de ser um
+esquema distribuído, o referido também é público, pois não há como censurar uma parte
 de participar da rede, basta o interessado ter acesso a internet que ele poderá
 realizar a sua cópia da base de dados.\cite{blockchain}
 
@@ -225,10 +226,10 @@ A estrutura de um bloco é basicamente a seguinte:
 	\item Transações em si.
 \end{itemize}
 
-Vale notar aqui que as transações detêm de uma estrutura de dados que permite a criação
+Vale notar que as transações detêm uma estrutura de dados que permite a criação
 de \textit{scripts}, além de permitir a inserção de dados arbitrários. \\
 
-Já a estrutra do cabeçalho do bloco:
+Já a estrutra do cabeçalho do bloco é composta por:
 \begin{itemize}
 	\item Versão do bloco.
 	\item \textit{Hash} do bloco anterior.
@@ -242,37 +243,38 @@ Esta estrutura de dados permite que qualquer participante da rede possa validar 
 bloco de maneira rápida. Existe o desafio matemático para a criação de blocos, isto é,
 para criar um novo bloco, ele deve calcular um \textit{Hash} com uma pseudo colisão de acordo
 com a variável \textit{Bits} do cabeçalho. Resolver esse desafio matemático é chamado
-de mineração, e a cada bloco que passa ele se torna mais difícil, entretanto, uma vez
+de mineração, e a cada bloco que passa se torna mais difícil, entretanto, uma vez
 que sua solução é conhecida, é extremamente fácil de validar sua corretude. Há diversas
-soluções possíveis para determinado bloco, porém basta apenas uma ser resolvida.\cite{Antonopoulos}
+soluções possíveis para determinado bloco, porém é necessário que apenas uma seja
+encontrada.\cite{Antonopoulos}
 
 Como a mineração de blocos se torna cada vez mais difícil, a probabilidade de algum
-atacante conseguir reescrever um bloco anterior é mínima. Visto que ele teria que concluir
+atacante conseguir reescrever um bloco anterior é mínima, visto que ele teria que concluir
 o desafio matemático para o bloco que deseja modificar e ainda todos os sucessores dele.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{blockchain}
-	\caption{Imagem tirada do whitepaper do Bitcoin}
+	\caption{Imagem tirada do whitepaper do Bitcoin.}
 	\label{fig:blockchain}
 \end{figure}
 
 \section{Contratos inteligentes}
 
 Já no surgimento da blockchain descrito no protocolo do Bitcoin, havia espaço para 
-criação \textit{scripts} nas transações. Porém estes \textit{scripts} foram concebidos
+criação de \textit{scripts} nas transações. Entretanto, estes \textit{scripts} foram concebidos
 para serem simples, com a ideia de não sobrecarregar a rede com a execução de códigos
 complexos. Um exemplo de \textit{script} trivial seria o congelamento de fundos até
-certa data futura. Como não é permitido \textit{loops} em sua estrutura, isto impacta
+certa data futura. Como não são  permitido \textit{loops} em sua estrutura, isto impacta
 na não Turing completude da linguagem de \textit{script}.\cite{nakamoto2012bitcoin}
 
-Com o desejo de se ter \textit{scripts} mais potentes foi criado o conceito de contratos
-inteligentes que são Turing-completos e ainda guardam o estado atual do sistema.
+Almejando-se ter \textit{scripts} mais potentes, foi criado o conceito de contratos
+inteligentes, que são Turing-completos e ainda guardam o estado atual do sistema.
 \cite{ethereum}
 
-Desta forma é possível criar aplicações que rodam de forma descentralizada e que podem
-ter seu estado atual verificado por qualquer participante do sistema em qualquer dado
-momento. Ainda garantindo as propriedades da blockchain.
+Desta forma, é possível criar aplicações que rodam de forma descentralizada e que podem
+ter seu estado atual verificado por qualquer participante do sistema em qualquer
+momento além de garantir as propriedades da blockchain.
 
 \bibliographystyle{abnt-alf}
 \bibliography{ref}
