@@ -179,6 +179,12 @@ cifrados e então decifra-los para trabalhar os dados. Neste contexto, surge o c
 de se operar com dados cifrados e obter-se o mesmo resultado caso se estivesse operando em
 texto plano.\cite{homomorphic}
 
+Criptografia homomórfica inclui diversos tipos de esquemas de criptografia que podem
+ser executados em diferentes classes de dados cifrados. Os tipos mais comuns de homomorfismo
+em criptografia são parcialmente homomórfico, relativamente homomórfico e completamente
+homomórfico.
+\cite{survey-homo}
+
 O nome criptografia homomórfica é derivado do conceito de homomorfismo em
 algébra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura
 entre duas estruturas algébricas X e Y.
@@ -194,6 +200,22 @@ correspondente. Sejam $x1$, $x2$ dados em texto plano. A tupla ($\alpha$, $\beta
 \begin{equation}
 \beta (\alpha(x1)) \star (\alpha(x2)) = x1 \star x2
 \end{equation}
+
+As operações principais de um esquema homomórfico de criptografia são: \textit{KeyGen},
+\textit{Encryption}, \textit{Decryption}, \textit{Eval}. \textit{KeyGen} é a operação
+para criar uma chave pública e outra privada em uma versão de criptografia assimétrica
+e a criação de uma chave única em modelo simétrico. \textit{KeyGen}, \textit{Encryption},
+\textit{Decryption} não são diferentes de suas funções em seus modelos tradicionais. 
+Entretanto, \textit{Eval} é uma operação específica de sistemas homomórficos, que tem
+como entrada e saída textos cifrados, adicionalmente, o dado cifrado resultante não deve
+aumentar de tamanho, caso contrário, haveria um limite de operações possíveis. \cite{survey-homo}
+
+\subsection{Parcialmente homomórficos}
+
+\subsection{Relativamente homomórficos}
+
+\subsection{Completamente homomórficos}
+
 
 \section{Blockchain}
 
