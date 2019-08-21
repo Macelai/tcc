@@ -15,6 +15,7 @@
 \local{Florianópolis}
 \data{01}{julho}{2019}
 \orientador[Orientador]{Prof.\ Dr.\ Jean Everson Martina}
+\coordenador[Coordenador]{Prof.\ EL FLETO, Dr.}
 
 \numerodemembrosnabanca{1}
 \orientadornabanca{nao}
@@ -189,6 +190,9 @@ tanta segurança.
 
 \chapter{Fundamentação teórica}
 
+\section{Criptografia Assimétrica}
+a\cite{cryptoschool}
+
 \section{Criptografia homomórfica}
 
 A ideia de usar homomorfismo na criptografia surgiu em um trabalho científico
@@ -201,8 +205,7 @@ texto plano.\cite{homomorphic}
 Criptografia homomórfica inclui diversos tipos de esquemas de criptografia que podem
 ser executados em diferentes classes de dados cifrados. Os tipos mais comuns de homomorfismo
 em criptografia são parcialmente homomórfico, relativamente homomórfico e completamente
-homomórfico.
-\cite{survey-homo}
+homomórfico.\cite{survey-homo}
 
 O nome criptografia homomórfica é derivado do conceito de homomorfismo em
 algébra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura
@@ -227,7 +230,7 @@ e a criação de uma chave única em modelo simétrico. \textit{KeyGen}, \textit
 \textit{Decryption} não são diferentes de suas funções em seus modelos tradicionais. 
 Entretanto, \textit{Eval} é uma operação específica de sistemas homomórficos, que tem
 como entrada e saída textos cifrados, adicionalmente, o dado cifrado resultante não deve
-aumentar de tamanho, caso contrário, haveria um limite de operações possíveis. \cite{survey-homo}
+aumentar de tamanho, caso contrário, haveria um limite de operações possíveis.\cite{survey-homo}
 
 \subsection{Parcialmente homomórficos}
 
@@ -301,6 +304,18 @@ o desafio matemático para o bloco que deseja modificar e ainda todos os sucesso
 \end{figure}
 
 \section{Contratos inteligentes}
+A ideia de contrato sempre esteve presente durante todo o curso da humanidade, com a evoluação
+da socidade foi se criando novos conceitos para se formalizar uma relação. O contrato é o pilar
+das relações econômicas modernas. Entretanto esse mecanismo tem um custo elevado, durante o
+processo de criação e utilização de contratos, normalmente baseados em lei comum, que muitas vezes
+torna-se inviável para determinados casos.
+
+Ideliazado no ano de 1997 por Nick Szabo, os contratos inteligentes foram pensados como
+uma substituição natural dos contratos realizados no cotidiano. Em analogia, a ideia é utilizar
+de software e hardware para a tomada de decisões, como em uma máquina automática de vendas de
+refrigerante. Os contratos inteligentes vão além da máquina de vendas, uma proposta de utilização
+de contratos em todos os tipos de propriedade e controlado do meio digital. Eles possibilitam a
+verificação desse contrato de maneira dinâmica e proativa.\cite{szabo-smart}
 
 Já no surgimento da blockchain descrito no protocolo do Bitcoin, havia espaço para 
 criação de \textit{scripts} nas transações. Entretanto, estes \textit{scripts} foram concebidos
@@ -310,8 +325,7 @@ certa data futura. Como não são  permitido \textit{loops} em sua estrutura, is
 na não Turing completude da linguagem de \textit{script}.\cite{nakamoto2012bitcoin}
 
 Almejando-se ter \textit{scripts} mais potentes, foi criado o conceito de contratos
-inteligentes, que são Turing-completos e ainda guardam o estado atual do sistema.
-\cite{ethereum}
+inteligentes, que são Turing-completos e ainda podem guardar o estado atual do sistema.\cite{ethereum}
 
 Desta forma, é possível criar aplicações que rodam de forma descentralizada e que podem
 ter seu estado atual verificado por qualquer participante do sistema em qualquer
