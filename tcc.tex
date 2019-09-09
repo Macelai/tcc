@@ -1,15 +1,15 @@
 \documentclass{ufsctex/ufsctex}
 
 \usepackage[table]{xcolor}
-\usepackage{graphicx, mdframed, enumitem, multirow, hhline, amssymb, amsmath}
+\usepackage{graphicx, mdframed, enumitem, multirow, hhline, amssymb, amsmath, listings}
 \graphicspath{{./images/}}
-
+\input{solidity-highlighting.tex}
 
 \instituicao[a]{Universidade Federal de Santa Catarina}
 \departamento[o]{Departamento de Informática e Estatística}
 \curso[o]{Programa de Graduação em Ciência da Computação}
 \documento[o]{{Trabalho de Conclusão de Curso}}
-\titulo{Eleição eletrônica utlizando blockchain e certificado digital}
+\titulo{Verificação de eleição utilizando blockchain}
 \autor{Vinicius Macelai}
 \grau{Bacharel em Ciência da Computação}
 \local{Florianópolis}
@@ -46,8 +46,20 @@
 	citadas anteriormente, com um baixo custo e menor necessidade de confiar em uma entidade central.}
 \palavrasChave{criptografia, eleições, democracia, blockchain, contratos inteligentes}
 
-\textAbstract{cryto}
-\keywords{crypto}
+\textAbstract{As approaches used in the selection systems of most remaining countries
+an executed service manual with paper banknotes. Such a model brings
+huge logistical problems and a high cost of operation due to
+requirements of a safe selection, which should provide privacy, transparency,
+verifiability and requirements. Already the electronic approaches via internet,
+still carry distrust about maintaining these properties. 
+A possible solution to improve an electronic approach would be to use a blockchain 
+to improve your auditability, which is the most questioned point in this scheme. A blockchain
+has intrinsic properties such as data immutability and schemas
+smart contracts on blockchain it is possible to check votes
+decentralized and open to the public. Thus, a system is created that maintains as properties
+mentioned above, with a low cost and the least need to rely on a central entity.
+}
+\keywords{crypto, elections, democracy, blockchain, smart contracts}
 
 \begin{document}
 
@@ -190,9 +202,6 @@ tanta segurança.
 
 \chapter{Fundamentação teórica}
 
-\section{Criptografia Assimétrica}
-a\cite{cryptoschool}
-
 \section{Criptografia homomórfica}
 
 A ideia de usar homomorfismo na criptografia surgiu em um trabalho científico
@@ -232,11 +241,12 @@ Entretanto, \textit{Eval} é uma operação específica de sistemas homomórfico
 como entrada e saída textos cifrados, adicionalmente, o dado cifrado resultante não deve
 aumentar de tamanho, caso contrário, haveria um limite de operações possíveis.\cite{survey-homo}
 
-\subsection{Parcialmente homomórficos}
-
-\subsection{Relativamente homomórficos}
-
-\subsection{Completamente homomórficos}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{crypto-homo}
+	\caption{Imagem tirada do paper ACAR et al., 2018.}
+	\label{fig:crypto-homo}
+\end{figure}
 
 
 \section{Blockchain}
@@ -325,11 +335,53 @@ certa data futura. Como não são  permitido \textit{loops} em sua estrutura, is
 na não Turing completude da linguagem de \textit{script}.\cite{nakamoto2012bitcoin}
 
 Almejando-se ter \textit{scripts} mais potentes, foi criado o conceito de contratos
-inteligentes, que são Turing-completos e ainda podem guardar o estado atual do sistema.\cite{ethereum}
+inteligentes, que são Turing-completos e ainda podem guardar o estado atual do sistema.
+Assim, possibilita a criação de aplicações extremamente mais complexas.\cite{ethereum}
+
+A \textit{blockchain Ethereum} 
 
 Desta forma, é possível criar aplicações que rodam de forma descentralizada e que podem
 ter seu estado atual verificado por qualquer participante do sistema em qualquer
 momento além de garantir as propriedades da blockchain.
+
+
+\chapter{Desenvolvimento}
+
+\section{Modificação do software Helios}
+
+
+\section{Contratos inteligentes}
+
+\subsection{Descrição do contrato}
+
+\begin{lstlisting}[language=Solidity]
+
+contract HeliosElection {
+    
+    string uuid;
+    string name;
+    string cast_url;
+    uint256 created_at;
+    uint256 voting_starts;
+    uint256 voting_ends;
+    
+    struct Public_Key {
+        string p;
+        string q;
+        string g;
+        string y;
+    }
+    
+    Public_Key public_key;
+    
+    struct Question {
+        string question;
+        string[] anwsers;
+    }
+    
+    Question[] questions;
+}
+\end{lstlisting}
 
 \bibliographystyle{abnt-alf}
 \bibliography{ref}
