@@ -202,6 +202,8 @@ tanta segurança.
 
 \chapter{Fundamentação teórica}
 
+\section{Eleições digitais}
+
 \section{Criptografia homomórfica}
 
 A ideia de usar homomorfismo na criptografia surgiu em um trabalho científico
@@ -338,7 +340,25 @@ Almejando-se ter \textit{scripts} mais potentes, foi criado o conceito de contra
 inteligentes, que são Turing-completos e ainda podem guardar o estado atual do sistema.
 Assim, possibilita a criação de aplicações extremamente mais complexas.\cite{ethereum}
 
-A \textit{blockchain Ethereum} 
+A \textit{blockchain Ethereum} foi criada juntamente com sua \textit{Virtual Machine}, a
+EVM\sigla{EVM}{\emph{Ethereum Virtual Machine}} como é chamada, que utiliza de um vasto conjunto
+de instruções para executar tanto tarefas específicas quanto gerais. Para armazenar os
+conjuntos de instruções de forma eficiente, a EVM os codifica em \textit{bytecodes}.\cite{wood2014yellow}
+
+Consequentemente com a criação do conjunto de instruções, houve a criação da uma linguagem
+de programação de alto nível que é compilada para esses \textit{bytecodes} especifícicos.
+\textit{Solidity} foi criada para ser uma linguagem simples de ser entendida e reproduzida
+para quem já têm os conhecimentos de programação de outras linguagens padrões de alto nível.
+\cite{solidity}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{ethereum}
+	\caption{Imagem tirada do whitepaper Ethereum}
+	\label{fig:ethereum}
+\end{figure}
+
+
 
 Desta forma, é possível criar aplicações que rodam de forma descentralizada e que podem
 ter seu estado atual verificado por qualquer participante do sistema em qualquer
@@ -346,9 +366,17 @@ momento além de garantir as propriedades da blockchain.
 
 
 \chapter{Desenvolvimento}
+este capíutlo será abordado a criação do esquema e desenvolvimento do projeto proposto.
 
 \section{Modificação do software Helios}
+Para ter acesso as informações relevantes para o esquema foram criados alguns \textit{endpoits}
+que disponibilizam essas informações, sendo essas:
 
+\begin{itemize}
+	\item GET `elections/<election\_uuid>/' retorna todas as informações públicas da eleição
+	\item GET `elections/<election\_uuid>/voters' retorna todas as informações públicas dos eleitores
+	\item GET `elections/<election\_uuid>/result' retorna todas as informações sobre o resultado
+\end{itemize}
 
 \section{Contratos inteligentes}
 
