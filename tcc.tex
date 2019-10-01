@@ -29,10 +29,10 @@
 \agradecimento{Agradeço a todos
 }
 
-\epigrafe{Citação top
+\epigrafe{Citação topsa
 }
 
-\textoResumo{As abordagens utilizadas  nos sistemas de eleição da maioria dos
+\textoResumo{As abordagens utilizadas  nos sistemas de eleição da maioria dios
 países continuam a ser realizadas de  forma manual, com cédulas na forma de
 papel. Tal modelo traz problemas enormes de logística e um alto custo para
 funcionamento devido aos requisitos de uma eleição segura, que deve fornecer
@@ -84,7 +84,7 @@ as mais diversas tarefas de maneira eletrônica e online, quando o assunto é
 votação no meio eletrônico, existem as mais diversas e controversas opiniões a
 respeito.
 
-No Brasil, eleições eletrônicas têm sido utlizadas por mais de 20 anos e testes
+No Brasil, eleições eletrônicas têm sido utilizadas por mais de 20 anos e testes
 recentes mostram que, mesmo com o desenvolvimento durante todo esse período, o
 atual sistema não consegue se mostrar realmente seguro\cite{aranha}. O maior
 problema com a solução proposta pelo Governo Brasileiro é a falta de
@@ -100,20 +100,12 @@ sistema.\cite{springer}. Entretanto, esses esquemas são utilizados de forma
 centralizada, rodando apenas em um servidor central, sem a possibilidade de tais
 informações serem acessadas pelo o público em geral de maneira transparente.
 
-Uma maneira de se realizar a autenticação no sistema seria utilizando
-certificado digital, que são arquivos digitais, que permite que uma pessoa seja
-identificada virtualmente, com garantia de autenticidade\cite{pki}. Sendo no
-Brasil, o modelo adotado para gerenciar o sistema, a Infraestrutura de Chaves
-Públicas Brasileira (ICPBrasil). Já na área da educação, há a Infraestrutura de
-Chaves Públicas para Ensino e Pesquisa (ICPEdu), que pode ser utilizada em
-votações no âmbito acadêmico.
-
 Para realizar a auditoria das votações, é possível utilizar da tecnologia
-blockchain, que são bases de registro de dados distrubuídos e compartilhados,
+blockchain, que são bases de registro de dados distribuídos e compartilhados,
 desta forma criando um consenso e confiança sobre o estado atual do
 sistema.\cite{nakamoto2012bitcoin}.  Garantir essas propriedades intrínsecas,
 como a imutabilidade dos dados, é um bom sistema para manter o registro dos
-votos, além da possiblidade de rodar contratos inteligentes que podem processar
+votos, além da possibilidade de rodar contratos inteligentes que podem processar
 os votos de maneira descentralizadas junto com a criptografia homomórfica para
 garantir o anonimato.
 
@@ -124,7 +116,7 @@ garantir as propriedades já citadas, além do estudo de seu impacto financeiro.
 
 Ainda, visa implementar uma solução que integre todas estas partes, um sistema
 de eleição eletrônico que permite ter informações sobre o votante de forma
-confiável. Além disso, almeja posibilitar a realização da verificação da eleição
+confiável. Além disso, almeja possibilitar a realização da verificação da eleição
 em uma blockchain de forma descentralizada e pública.
 
 \section{Motivação}
@@ -151,15 +143,15 @@ que beneficiarão a sociedade como um todo.
 \section{Pergunta de pesquisa}
 
 Este trabalho visa responder se é possível construir um modelo de eleição
-eletrônica utlizando a blockchain para garantir uma maior auditabilidade do
+eletrônica utilizando a blockchain para garantir uma maior auditabilidade do
 sistema. Além de responder até qual volume de dados seria possível processar em
-contratos inteligentes na blockchain, juntamente com o cálculo ecônomico.
+contratos inteligentes na blockchain, juntamente com o cálculo econômico.
 
 \section{Hipóteses}
 
 \begin{itemize}
 	\item É possível criar um modelo de eleição eletrônica utilizando blockchain
-		para forncer maior auditabilidade.
+		para fornecer maior auditabilidade.
 	\item É viável utilizar a blockchain Ethereum até qual volume dados.
 	\item É economicamente viável esse modelo.
 \end{itemize}
@@ -187,11 +179,10 @@ custos de uma eleição. \\
 \section{Metodologia}
 
 O trabalho será desenvolvido utilizando a infraestrutura e recursos do
-Laborarório de Segurança em Computação (LabSEC/UFSC), em que será estudada a
+Laboratório de Segurança em Computação (LabSEC/UFSC), em que será estudada a
 bibliografia referente aos assuntos abordados nesta pesquisa, visando encontrar
-uma abordagem para um sistema de eleição eletrônica utilizando certificação
-digital juntamente com blockchain e contratos inteligentes.  Frisando suas
-vantagens e desvantanges e seus custos.
+uma abordagem para um sistema de eleição eletrônica com blockchain e contratos
+inteligentes.  Frisando suas vantagens e desvantagens e seus custos.
 
 \section{Resultados esperados}
 
@@ -203,16 +194,75 @@ conseguirá processar diversas transações por segundo. Além de que, como há 
 processamento de dados, devido a criptografia homomórfica, tende a ser inviável
 economicamente para casos onde não há necessidade de tanta segurança.
 
+\chapter{Revisão Sistemática}
+
+\section{Descrição}
+
+Este capítulo tem como objetivo realizar uma revisão sistemática do estado da
+arte sobre a tecnologia \textit{blockchain} com sua utilização em eleições
+eletrônicas, irá ser verificado se já há algum trabalho que tenha o mesmo
+objetivo deste, garantir um processo melhor de auditoria utilizando de prova de
+existência com a \textit{blockchain}. Foi decidido realizar uma revisão
+sistemática para garantir que não haja vieses na revisão do estado da arte. A
+revisão sistemática segue um método de seleção e análise de dados e trabalhos
+definidos anteriormente da revisão em si, em um processo rígido e bem definido,
+evitando vieses.
+
+\section{Definição da estratégia de busca}
+
+A busca foi realizada nos maiores banco de dados de trabalhos científicos
+disponíveis, Google Scholar e Scopus. As palavras chaves utilizadas são
+\textit{Smart contracts} e \textit{Elections}, dando exclusividade a trabalhos
+em inglês. A busca foi reduzida para trabalhos publicados apenas nos anos de
+2018 e 2019, para se obter resultados apenas do estado atual. Desta busca,
+foram revisados os 10 primeiros trabalhos de cada banco de buscas, da forma que
+cada banco de pesquisas tem seu modelo de relevância para determinar as
+primeiras colocações, como número de citações e melhor encaixe com as palavras
+chaves pesquisadas.
+
+\section{Resultados}
+
+De acordo com a pesquisa e revisão sistemática realizada, foi constatado que o
+tema geral de se utilizar \textit{smart contracts} em processos de eleições
+digitais é bastante pesquisado. Entretanto foi verificado que esses trabalhos
+têm um objetivo diferente deste, onde eles utilizam da \textit{blockchain} e
+\textit{smart contracts} para realizar todo o processo da eleição, desde a
+criação de uma eleição, cadastro de pessoas autorizadas a votar e resultado
+final da eleição. Os trabalhos focam em realizar o processo inteiro em
+\textit{smart contracts}.
+
+Como no trabalho realizado com o objetivo de se ter eleições de larga escala
+com \textit{blockchain} é proposto um esquema de votos utilizando de
+criptografia homomórfica de ElGamal juntamente com assinaturas em anel.
+\cite{WANG2018234} Este esquema é amplamente conhecido e utilizados em outras
+implementações de eleições digitais, como por exemplo, no software Helios, que
+é um software de código aberto feito para eleições digitais verificáveis.
+
+Já outros trabalhos não utilizam esquema nenhuma de criptografia para esconder
+o voto ou quem votava, apenas se baseava na hipótese de um endereço da
+\textit{blockchain} fosse seu pseudônimo. \cite{Yavuz2018} Essa abordagem é
+muito simples para a maioria dos casos e não garante propriedades como
+anonimidade do voto, visto que é possível rastrear as carteiras de uma
+\textit{blockchain} com análises estatísticas. \cite{Kosy2014}
+
+Entretanto a abordagem deste trabalho consiste em realizar essas operações em
+um software padrão centralizado, como o Helios, e apenas utilizar da
+\textit{blockchain} para publicar o resultado destas operações, visto que a
+complexidade computacional de tais operações é elevada.
+
+Conclui-se então que os trabalhos já publicados com esse tema de pesquisa têm
+um objetivo diferente deste trabalho proposto.
+
 \chapter{Fundamentação teórica}
 
 \section{Eleições digitais}
 
-	\section{Criptografia homomórfica}
+\section{Criptografia homomórfica}
 
 A ideia de usar homomorfismo na criptografia surgiu em um trabalho científico
 publicado com o objetivo de propor um criptossistema em um cenário de aumento da
 utilização de terminais remotos. Neste caso, não seria ideal ter acesso a todo o
-banco de dados cifrados e então decifra-los para trabalhar os dados. Neste
+banco de dados cifrados e então decifrá-los para trabalhar os dados. Neste
 contexto, surge o conceito de se operar com dados cifrados e obter-se o mesmo
 resultado caso se estivesse operando em texto plano.\cite{homomorphic}
 
@@ -222,7 +272,7 @@ comuns de homomorfismo em criptografia são parcialmente homomórfico,
 relativamente homomórfico e completamente homomórfico.\cite{survey-homo}
 
 O nome criptografia homomórfica é derivado do conceito de homomorfismo em
-algébra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura entre
+álgebra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura entre
 duas estruturas algébricas X e Y.
 
 \begin{equation}
@@ -231,7 +281,7 @@ duas estruturas algébricas X e Y.
 
 Seja $\alpha$ uma função de ciframento e $\beta$ uma função de desencriptação
 correspondente. Sejam $x1$, $x2$ dados em texto plano. A tupla ($\alpha$,
-$\beta$) é uma cifra homomórfica com o operador $\star$ se a proprieade for
+$\beta$) é uma cifra homomórfica com o operador $\star$ se a propriedade for
 satisfeita:
 
 \begin{equation}
@@ -270,7 +320,7 @@ A concepção da blockchain foi feita para ser um encadeamento de registros
 imutáveis, distribuídos e públicos. Os registros são imutáveis devido ao tipo de
 encadeamento que é feito com os blocos, em que o ponteiro para o bloco anterior
 é projetado para garantir a imutabilidade dos dados. Como é um protocolo
-distribuído, todas as informações não estão armezenadas em um sevidor central e
+distribuído, todas as informações não estão armazenadas em um servidor central e
 não há um nodo mestre que coordene a rede. Justamente o oposto disso, a
 blockchain está replicada em todos os nodos participantes da rede, que podem
 estar espalhados pelo mundo inteiro. Além de ser um esquema distribuído, o
@@ -292,7 +342,7 @@ A estrutura de um bloco é basicamente a seguinte:
 Vale notar que as transações detêm uma estrutura de dados que permite a criação
 de \textit{scripts}, além de permitir a inserção de dados arbitrários. \\
 
-Já a estrutra do cabeçalho do bloco é composta por:
+Já a estrutura do cabeçalho do bloco é composta por:
 \begin{itemize}
 	\item Versão do bloco.
 	\item \textit{Hash} do bloco anterior.
@@ -325,13 +375,13 @@ ainda todos os sucessores dele.
 \end{figure}
 
 \section{Contratos inteligentes} A ideia de contrato sempre esteve presente
-durante todo o curso da humanidade, com a evoluação da socidade foi se criando
+durante todo o curso da humanidade, com a evolução da sociedade foi se criando
 novos conceitos para se formalizar uma relação. O contrato é o pilar das
 relações econômicas modernas. Entretanto esse mecanismo tem um custo elevado,
 durante o processo de criação e utilização de contratos, normalmente baseados em
 lei comum, que muitas vezes torna-se inviável para determinados casos.
 
-Ideliazado no ano de 1997 por Nick Szabo, os contratos inteligentes foram
+Idealizado no ano de 1997 por Nick Szabo, os contratos inteligentes foram
 pensados como uma substituição natural dos contratos realizados no cotidiano.
 Em analogia, a ideia é utilizar de software e hardware para a tomada de
 decisões, como em uma máquina automática de vendas de refrigerante. Os
@@ -361,7 +411,7 @@ eficiente, a EVM os codifica em \textit{bytecodes}.\cite{wood2014yellow}
 
 Consequentemente com a criação do conjunto de instruções, houve a criação da uma
 linguagem de programação de alto nível que é compilada para esses
-\textit{bytecodes} especifícicos.  \textit{Solidity} foi criada para ser uma
+\textit{bytecodes} específicos.  \textit{Solidity} foi criada para ser uma
 linguagem simples de ser entendida e reproduzida para quem já têm os
 conhecimentos de programação de outras linguagens padrões de alto nível.
 \cite{solidity}
@@ -378,7 +428,7 @@ que podem ter seu estado atual verificado por qualquer participante do sistema
 em qualquer momento além de garantir as propriedades da blockchain.
 
 \chapter{Desenvolvimento}
-Este capíutlo será abordado a criação do esquema e desenvolvimento do projeto proposto.
+Este capítulo será abordado a criação do esquema e desenvolvimento do projeto proposto.
 
 \section{Modificação do software Helios}
 Para ter acesso as informações relevantes para o esquema foram criados alguns \textit{endpoits}
