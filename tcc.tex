@@ -255,7 +255,11 @@ um objetivo diferente deste trabalho proposto.
 
 \chapter{Fundamentação teórica}
 
+\section{Segurança em computação}
+
 \section{Eleições digitais}
+
+\section{Hash}
 
 \section{Criptografia homomórfica}
 
@@ -427,6 +431,12 @@ Desta forma, é possível criar aplicações que rodam de forma descentralizada 
 que podem ter seu estado atual verificado por qualquer participante do sistema
 em qualquer momento além de garantir as propriedades da blockchain.
 
+\chapter{Helios}
+
+Neste capítulo será apresentado o software Helios, em que este trabalho se
+baseia para criar um módulo \textit{blockchain} para realizar a prova de
+existência das informações importantes dessa uma eleição no Helios.
+
 \chapter{Desenvolvimento}
 Este capítulo será abordado a criação do esquema e desenvolvimento do projeto proposto.
 
@@ -554,6 +564,61 @@ contract Election {
 }
 
 \end{lstlisting}
+
+\section{Custo financeiro}
+
+Considerando Gas Price de 25 gwei, visto em 25/09/2019
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Método        & Gas    & Dólar  \\ \hline
+constructor   & 571316 & \$2.41 \\ \hline
+addQuestion   & 84624  & \$0.35 \\ \hline
+setVotersHash & 87482  & \$0.36 \\ \hline
+setReleasedAt & 42164  & \$0.17 \\ \hline
+\end{tabular}
+\caption{Custos do contrato resultado}
+\label{tab:my-table}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Método      & Gas    & Dólar  \\ \hline
+constructor & 389806 & \$1.64 \\ \hline
+addVote     & 128449 & \$0.54 \\ \hline
+\end{tabular}
+\caption{Custos do contrato votos}
+\label{tab:my-table}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Método      & Gas    & Dólar  \\ \hline
+constructor & 508588 & \$2.14 \\ \hline
+addVoter    & 151882 & \$0.64 \\ \hline
+\end{tabular}
+\caption{Custos do contrato votantes}
+\label{tab:my-table}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Método      & Gas     & Dólar   \\ \hline
+constructor & 2684091 & \$11.34 \\ \hline
+addQuestion & 129270  & \$0.54  \\ \hline
+\end{tabular}
+\caption{Custos do contrato eleição}
+\label{tab:my-table}
+\end{table}
+
 
 \bibliographystyle{abnt-alf}
 \bibliography{ref}
