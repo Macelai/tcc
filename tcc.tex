@@ -1,7 +1,6 @@
 \documentclass{ufsctex/ufsctex}
 
-\usepackage[table]{xcolor}
-\usepackage{graphicx, mdframed, enumitem, multirow, hhline, amssymb, amsmath, listings}
+\usepackage{graphicx, enumitem, listings}
 \graphicspath{{./images/}}
 \input{solidity-highlighting.tex}
 
@@ -13,14 +12,15 @@
 \autor{Vinicius Macelai}
 \grau{Bacharel em Ciência da Computação}
 \local{Florianópolis}
-\data{01}{julho}{2019}
+\data{01}{novembro}{2019}
 \orientador[Orientador]{Prof.\ Dr.\ Jean Everson Martina}
-\coordenador[Coordenador]{Prof.\ José Francisco Danilo de Guadalupe Correa Fletes}
+\coordenador[Coordenador]{Prof.\ Me.\ José Francisco Danilo de Guadalupe Correa
+Fletes}
 
 \numerodemembrosnabanca{2}
 \orientadornabanca{nao}
 \coorientadornabanca{nao}
-\bancaMembroA{Fernando Pereira Me. \\
+\bancaMembroA{Me. Fernando Pereira \\
   Universidade Federal de Santa Catarina
 }
 \bancaMembroB{Gustavo Zambonim \\
@@ -258,20 +258,91 @@ um objetivo diferente deste trabalho proposto.
 
 \chapter{Fundamentação teórica}
 
+Neste capítulo estão descritos os conceitos básicos para o entendimento do
+trabalho, desde a parte básica de conceitos de segurança, bem como os
+algoritmos e ferramentas utilizadas ao longo do trabalho.
+
 \section{Segurança em computação}
 
 \section{Eleições digitais}
 
 \section{Hash}
 
+Funções Hash são conhecidas também como funções de sentido único, o objetivo
+dessa função é de relevar uma pequena porção de informação sobre uma mensagem
+ou entrada de tamanho arbitrário.  Essa pequena quantidade de informação
+relevada deve ter um tamanho suficiente para identificar a entrada de maneira
+única e o tamanho dessa saída deve ser fixo. Um requisito para o uso dessas
+funções em criptografia é que ela deve ser computacionalmente difícil e
+intensiva para um atacante gerar duas entradas que geram o mesmo valor hash.
+\cite{cryptoschool}
+
+Definição: Seja $\mathcal{H} : X \longrightarrow Z$ um mapeamento entre dois
+conjuntos finitos X e Z. $\mathcal{H}$  é uma função de Hash.
+
+As propriedades da função $\mathcal{H}$ devem ser:
+
+\begin{itemize}
+
+	\item Eficiência: a verificação do resumo de $\mathcal{H}$(x) precisa ser
+	facilmente verificado.
+	\item A saída de $\mathcal{H}$ para um \textit{X} fixo deve ser sempre a
+		mesma.
+
+\end{itemize}
+
+Já na classe de funções hash que são para o uso criptográfico, há a necessidade
+de algumas características adicionais:
+
+\begin{itemize}
+
+	\item Resistência a colisão: Deve ser computacionalmente difícil encontrar
+		duas entradas distintas \textit{m1} e \textit{m2}, tal que
+		$\mathcal{H}$\textit{(m1)} = $\mathcal{H}$(\textit{m2}). Essas duas
+		entradas são chamadas de colisão hash.
+	\item Resistência a pré-imagem: Dado uma saída \textit{r} deve ser
+		computacionalmente difícil encontrar alguma outra entrada \textit{m},
+		tal que $\mathcal{H}$\textit{(m)} = \textit{r}. Esta propriedade esta
+		relacionada a ser uma função de sentido único.
+	\item Resistência a segunda pré-imagem: Dado uma entrada \textit{m1} deve
+		ser computacionalmente difícil encontrar alguma outra entrada
+		\textit{m2}, tal que $\mathcal{H}$\textit{(m1)} =
+		$\mathcal{H}$(\textit{m2})
+	\item Pseudo-aleatoriedade: A saída de $\mathcal{H}$ deve ter a propriedade
+		de ser pseudo-aleatoria.
+	\item Efeito avalanche: Caso haja a mudança de apenas um bit em uma
+		determinada entrada, a saída de $\mathcal{H}$ deve ser significadamente
+		diferente.
+
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.35]{hash_function}
+	\caption{TODO citar wiki}
+	\label{fig:hash}
+\end{figure}
+
+As funções de sentido único tem diversas utilidades na área de computação,
+desde na busca de dados em uma estrutura de dados chamado de tabela hash, que
+possibilita consultas de forma rápida, até na parte de banco de dados, que é
+possível a detecção de registros duplicados ou até mesmo a não integridade de
+determinado dado.
+
+Na área de criptografia há ainda a utilização em assinaturas digitais, códigos
+de autenticação de mensagens, e ainda outras formas de autenticação. Além do
+mais é  muito utilizada em \textit{blockchains}, com sua finalidade em fornecer
+prova de trabalho e outras propriedades como utilizar um endereço sem revelar
+sua chave pública e consequentemente sua privacidade.
+
 \section{Criptografia homomórfica}
 
 A ideia de usar homomorfismo na criptografia surgiu em um trabalho científico
-publicado com o objetivo de propor um criptossistema em um cenário de aumento da
-utilização de terminais remotos. Neste caso, não seria ideal ter acesso a todo o
-banco de dados cifrados e então decifrá-los para trabalhar os dados. Neste
-contexto, surge o conceito de se operar com dados cifrados e obter-se o mesmo
-resultado caso se estivesse operando em texto plano.\cite{homomorphic}
+publicado com o objetivo de propor um criptossistema em um cenário de aumento
+da utilização de terminais remotos. Neste caso, não seria ideal ter acesso a
+todo o banco de dados cifrados e então decifrá-los para trabalhar os dados.
+Neste contexto, surge o conceito de se operar com dados cifrados e obter-se o
+mesmo resultado caso se estivesse operando em texto plano.\cite{homomorphic}
 
 Criptografia homomórfica inclui diversos tipos de esquemas de criptografia que
 podem ser executados em diferentes classes de dados cifrados. Os tipos mais
@@ -279,11 +350,11 @@ comuns de homomorfismo em criptografia são parcialmente homomórfico,
 relativamente homomórfico e completamente homomórfico.\cite{survey-homo}
 
 O nome criptografia homomórfica é derivado do conceito de homomorfismo em
-álgebra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura entre
-duas estruturas algébricas X e Y.
+álgebra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura
+entre duas estruturas algébricas X e Z.
 
 \begin{equation}
-{f} : X \longrightarrow Y
+f : X \longrightarrow Y
 \end{equation}
 
 Seja $\alpha$ uma função de ciframento e $\beta$ uma função de desencriptação
@@ -441,11 +512,12 @@ baseia para criar um módulo \textit{blockchain} para realizar a prova de
 existência das informações importantes dessa uma eleição no Helios.
 
 \chapter{Desenvolvimento}
-Este capítulo será abordado a criação do esquema e desenvolvimento do projeto proposto.
+Este capítulo será abordado a criação do esquema e desenvolvimento do projeto
+proposto.
 
 \section{Modificação do software Helios}
-Para ter acesso as informações relevantes para o esquema foram criados alguns \textit{endpoits}
-que disponibilizam essas informações, sendo essas:
+Para ter acesso as informações relevantes para o esquema foram criados alguns
+\textit{endpoits} que disponibilizam essas informações, sendo essas:
 
 \begin{itemize}
 	\item GET `elections/<election\_uuid>/' retorna todas as informações públicas da eleição
@@ -622,7 +694,9 @@ addQuestion & 129270  & \$0.54  \\ \hline
 \label{tab:my-table}
 \end{table}
 
-\section{Conclusões}
+\chapter{Conclusões}
+
+\section{Trabalhos futuros}
 
 \bibliographystyle{abnt-alf}
 \bibliography{ref}
@@ -631,6 +705,5 @@ addQuestion & 129270  & \$0.54  \\ \hline
 \apendice{}
 
 \chapter{ARTIGO DO TCC}
-
 
 \end{document}
