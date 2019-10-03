@@ -264,7 +264,12 @@ algoritmos e ferramentas utilizadas ao longo do trabalho.
 
 \section{Segurança em computação}
 
+
+
 \section{Eleições digitais}
+
+Fazer uma revisão sobre as abordagens de eleições digitais atuais??? Aqui é o
+espaço certo???
 
 \section{Hash}
 
@@ -333,7 +338,7 @@ Na área de criptografia há ainda a utilização em assinaturas digitais, códi
 de autenticação de mensagens, e ainda outras formas de autenticação. Além do
 mais é  muito utilizada em \textit{blockchains}, com sua finalidade em fornecer
 prova de trabalho e outras propriedades como utilizar um endereço sem revelar
-sua chave pública e consequentemente sua privacidade.
+sua chave pública e consequentemente sua privacidade.\cite{hashBlockchain}
 
 \section{Criptografia homomórfica}
 
@@ -507,11 +512,19 @@ em qualquer momento além de garantir as propriedades da blockchain.
 
 \chapter{Helios}
 
+\section{Introdução}
+
 Neste capítulo será apresentado o software Helios, em que este trabalho se
 baseia para criar um módulo \textit{blockchain} para realizar a prova de
-existência das informações importantes dessa uma eleição no Helios.
+existência das informações importantes para a verificação e auditoria de uma
+eleição neste sofware.
+
+\subsection{Sobre}
+
+Helios voting é um software de código aberto escrito por Ben Adida
 
 \chapter{Desenvolvimento}
+
 Este capítulo será abordado a criação do esquema e desenvolvimento do projeto
 proposto.
 
@@ -646,12 +659,12 @@ Considerando Gas Price de 25 gwei, visto em 25/09/2019
 
 \begin{table}[]
 \centering
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{||c|c|c||}
 \hline
-Método        & Gas    & Dólar  \\ \hline
-constructor   & 571316 & \$2.41 \\ \hline
-addQuestion   & 84624  & \$0.35 \\ \hline
-setVotersHash & 87482  & \$0.36 \\ \hline
+	\textbf{Método}        & \textbf{Gas}    & \textbf{Dólar}  \\  [0.2ex] \hline \hline
+constructor   & 571316 & \$2.41 \\
+addQuestion   & 84624  & \$0.35 \\ 
+setVotersHash & 87482  & \$0.36 \\ 
 setReleasedAt & 42164  & \$0.17 \\ \hline
 \end{tabular}
 \caption{Custos do contrato resultado}
@@ -660,38 +673,38 @@ setReleasedAt & 42164  & \$0.17 \\ \hline
 
 \begin{table}[]
 \centering
-\begin{tabular}{|c|c|c|}
-\hline
-Método      & Gas    & Dólar  \\ \hline
-constructor & 389806 & \$1.64 \\ \hline
-addVote     & 128449 & \$0.54 \\ \hline
-\end{tabular}
-\caption{Custos do contrato votos}
-\label{tab:my-table}
+\begin{tabular}{||c|c|c||}
+		\hline
+		\textbf{Método} & \textbf{Gas} & \textbf{Dólar}  \\ [0.2ex] \hline \hline
+		constructor & 389806 & \$1.64 \\ 
+		addVote     & 128449 & \$0.54 \\ \hline
+	\end{tabular}
+	\caption{Custos do contrato votos}
+	\label{tab:my-table}
 \end{table}
 
 \begin{table}[]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-Método      & Gas    & Dólar  \\ \hline
-constructor & 508588 & \$2.14 \\ \hline
-addVoter    & 151882 & \$0.64 \\ \hline
-\end{tabular}
-\caption{Custos do contrato votantes}
-\label{tab:my-table}
+	\centering
+	\begin{tabular}{||c|c|c||}
+		\hline
+		\textbf{Método}  & \textbf{Gas} & \textbf{Dólar}  \\ [0.2ex] \hline \hline
+		constructor & 508588 & \$2.14 \\ 
+		addVoter    & 151882 & \$0.64 \\ \hline
+	\end{tabular}
+	\caption{Custos do contrato votantes}
+	\label{tab:my-table}
 \end{table}
 
 \begin{table}[]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-Método      & Gas     & Dólar   \\ \hline
-constructor & 2684091 & \$11.34 \\ \hline
-addQuestion & 129270  & \$0.54  \\ \hline
-\end{tabular}
-\caption{Custos do contrato eleição}
-\label{tab:my-table}
+	\centering
+	\begin{tabular}{||c|c|c||}
+		\hline
+		\textbf{Método} & \textbf{Gas}  & \textbf{Dólar}   \\ [0.2ex] \hline \hline
+		constructor & 2684091 & \$11.34 \\ 
+		addQuestion & 129270  & \$0.54  \\ \hline
+	\end{tabular}
+	\caption{Custos do contrato eleição}
+	\label{tab:my-table}
 \end{table}
 
 \chapter{Conclusões}
