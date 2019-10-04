@@ -514,14 +514,60 @@ em qualquer momento além de garantir as propriedades da blockchain.
 
 \section{Introdução}
 
-Neste capítulo será apresentado o software Helios, em que este trabalho se
-baseia para criar um módulo \textit{blockchain} para realizar a prova de
+Neste capítulo será apresentado o software Helios voting, em que este trabalho
+se baseia para criar um módulo \textit{blockchain} para realizar a prova de
 existência das informações importantes para a verificação e auditoria de uma
 eleição neste sofware.
 
-\subsection{Sobre}
+\section{Sobre}
 
-Helios voting é um software de código aberto escrito por Ben Adida
+Helios voting é um software de código aberto desenvolvido por Ben Adida. Foi
+desenvolvido com o intuito de ser o primeiro aplicativo baseado na
+\textit{Web}, de auditoria aberta ao público. De maneira que qualquer um
+poderia rodar sua própria eleição, e quem estiver disposto a observar o
+processo e auditar o processo inteiro conseguiria também. É concebido para ser
+usado em clubes locais, eleições para reitor de universidade e comunidades
+online. De maneira votos secretos são necessários e a coerção não é um grande
+problema.\cite{benAdida}
+
+O código do front-end foi escrito em \textit{JavaScript} e \textit{HTML}, e a
+parte do servidor foi desenvolvida em \textit{Python} com o framework para
+aplicações web \textit{Django}. 
+
+Algumas características do esquema proposto:
+
+\begin{itemize}
+
+	\item Eleições com baixa coerção: Votações online e por carta sempre
+		tiveram um problema de coerção, visto que, nessa abordagem é possível
+		que na hora do voto, há outra pessoa forçando por meio de ameaças ou
+		força física a maneira que a pessoa vote. Alguns sistemas possibilitem
+		que o voto seja feito mais de uma vez para mitigar esse problema,
+		assim, a coerção deveria ocorrer durante todo o período da eleição para
+		ter sucesso. A abordagem do Helios é que o último voto é sempre o
+		válido para a eleição, de forma que se a eleição for feita em período
+		de intervalo de dias, é difícil ter uma coerção de uma maioria
+		significativa para o resultado. Dessa forma, essa abordagem visa apenas
+		eleições onde o que está jogo não é algo tão crítico, como uma votação
+		para o presidente de um país.
+	\item Não confie em ninguém para integridade, confie no Helios para
+		privacidade: Criptossistemas de voto eletrônico possuem duas
+		propriedades que devem proteger, tanto a privacidade do voto, quanto a
+		integridade. Num modelo de ataque onde todas as partes do sistema é
+		corrompido e atacado, existe o entendimento que não há como proteger as
+		duas coisas ao mesmo tempo. A abordagem do Helios acredita que é mais
+		importante que a integridade seja garantida. Dessa forma, há a
+		necessidade que um conjunto minimo de administradores/apuradores sejam
+		honestos para que a privacidade não seja comprometida, entretanto mesmo
+		que todos apuradores sejam maliciosos, isso não afeta a parte de
+		auditoria do sistema. Portanto há a necessidade de se confiar na infraestrutura do Helios
+		para que a privacidade seja garantida.
+
+\end{itemize}
+
+\section{Processo de voto}
+
+Dúvida, até que ponto falar sobre criptografia homomórfica?
 
 \chapter{Desenvolvimento}
 
