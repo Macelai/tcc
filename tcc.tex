@@ -591,7 +591,51 @@ Algumas características do esquema proposto:
 
 \section{Processo de voto}
 
-Dúvida, até que ponto falar sobre criptografia homomórfica?
+O primeiro passo é criar uma eleição, para isso, o usuário deve ter uma conta
+no Helios, que requer um email, nome e senha. O usuário pode então criar uma
+eleição com um determinado nome e define o período de votação. Desta forma o
+usuário que criou a eleição se torna um administrador da mesma. Uma vez que a
+eleição é criada, o Helios já provêm todas as chaves criptográficas necessárias
+para o esquema. O administrador prepara então a cabine de votação com as
+perguntas e respostas, além de carregar todos os eleitores aptos para a
+eleição, essas informações podem ser editadas até o momento que a votação
+comece. O administrador deve congelar a eleição quando a mesma está pronta para
+receber os votos. Uma vez congelada, nada pode ser alterado sobre a cabine,
+votantes ou tempo da eleição.
+
+
+Um outro usuário que foi adicionado como um eleitor pelo administrador,
+receberá em seu email o seu usuário da eleição, uma senha gerada aleatória que
+é específica para esta votação e um link para a cabine de votação online, além
+de um resumo criptográfico dos parâmetros da eleição para fins de auditoria.
+Assim que iniciar o processo de votação na cabine pelo link recebido, o mesmo
+faz a escolha de seus votos e por fim realiza uma revisão de suas decisões. Uma
+vez revisado a cédula de votação, ela é selada e então cifrada para enviar para
+o servidor.
+
+Assim que o voto é cifrado, há a possibilidade do eleitor auditar o texto
+cifrado para verificar se realmente o seu voto foi computado corretamente.
+Entretanto uma vez que o voto cifrado é aberto, é necessário que seja cifrado
+novamente. Nesta hora é realizado o processo de autenticação do eleitor, caso a
+autenticação for um sucesso, a cédula é adicionada na eleição pelo servidor.
+Todos os votos são publicados em um boletim, que contêm o identificador do
+votante junto com seu voto cifrado.
+
+Quando a eleição acabar, o servidor embaralha todas as cédulas, cifra todos os
+votos e coloca de modo público para as partes interessadas em auditar a
+votação. A auditoria permite verificar que o embaralhamento dos votos foi feito
+de maneira correta. Depois de um certo período de tempo, o Helios decifra as
+cédulas de votação e registra os votos. Qualquer pessoa pode baixar os dados
+gerados pela eleição para verificar que o embaralhamento, decifragem e contagem
+estão corretos.
+
+Vale ressaltar aqui que o voto individual nunca é decifrado de maneira
+individual, uma vez que apenas os votos cifrados são encaminhados para o servidor,
+então é utilizado de criptografia homomórfica para combinar todos os votos
+cifrados em uma coisa só, a contagem,  e apenas a contagem é decifrada, não
+revelando nenhuma informação adicional, a não ser pelo resultado.
+
+\section{Informações relevantes para auditoria}
 
 \chapter{Desenvolvimento}
 
