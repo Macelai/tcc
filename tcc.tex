@@ -1,6 +1,6 @@
 \documentclass{ufsctex/ufsctex}
 
-\usepackage{graphicx, enumitem, listings}
+\usepackage{graphicx, enumitem, listings, float}
 \graphicspath{{./images/}}
 \input{solidity-highlighting.tex}
 
@@ -262,14 +262,37 @@ Neste capítulo estão descritos os conceitos básicos para o entendimento do
 trabalho, desde a parte básica de conceitos de segurança, bem como os
 algoritmos e ferramentas utilizadas ao longo do trabalho.
 
-\section{Segurança em computação}
+\section{Segurança da informação}
 
+Os conceitos descritos pela segurança da informação não estão restritos apenas
+a sistemas computacionais. O conceito pode ser aplicado a todos os aspectos de
+proteção de informações e dados. 
 
+No momento atual, estes conceitos estão padronizados pela norma ISO/IEC
+17799:2005, fortemente influenciada pelo padrão inglês BS 7799.
 
-\section{Eleições digitais}
+Segundo a ISO/IEC 17799, os atributos básicos sobre segurança de informação
+são:
 
-Fazer uma revisão sobre as abordagens de eleições digitais atuais??? Aqui é o
-espaço certo???
+\begin{itemize}
+	\item \textit{Confidencialidade}: Visa limitar o acesso da informação para
+		apenas os participantes que o remetente autorizou, e ninguém mais.
+	\item \textit{Integridade}: Garante que a informação enviada pelo remetente
+		permaneça com suas características originais, de maneira que, caso
+		alterada, seja possível ser detectado. Garantindo o ciclo de vida da
+		informação.
+	\item \textit{Autenticidade}: Assegura que a informação enviada pelo
+		remetente não foi manipulada por terceiros ao longo do processo.
+	\item \textit{Disponibilidade}: Atesta que a informação esteja sempre
+		disponível para os participantes que detêm autorização de uso.
+	\item \textit{Não Repúdio}: Certifica que não há como negar a autoria de
+		uma mensagem.
+	\item \textit{Conformidade}: Garante que o sistema segue as regras e
+		regulamentos definidos a esse tipo de processo.
+	\item \textit{Tempestividade}: Possibilita a comprovação que um determinado
+		episódio ocorreu em dado instante de tempo.
+\end{itemize}
+\cite{ISO17799}
 
 \section{Hash}
 
@@ -321,7 +344,7 @@ de algumas características adicionais:
 
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.35]{hash_function}
 	\caption{TODO citar wiki}
