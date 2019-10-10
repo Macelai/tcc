@@ -36,7 +36,7 @@ Fletes}
 	- \textit{George Orwell, 1984}
 }
 
-\textoResumo{As abordagens utilizadas  nos sistemas de eleição da maioria dios
+\textoResumo{As abordagens utilizadas  nos sistemas de eleição da maioria dos
 países continuam a ser realizadas de  forma manual, com cédulas na forma de
 papel. Tal modelo traz problemas enormes de logística e um alto custo para
 funcionamento devido aos requisitos de uma eleição segura, que deve fornecer
@@ -541,7 +541,7 @@ em qualquer momento além de garantir as propriedades da blockchain.
 Neste capítulo será apresentado o software Helios voting, em que este trabalho
 se baseia para criar um módulo \textit{blockchain} para realizar a prova de
 existência das informações importantes para a verificação e auditoria de uma
-eleição neste sofware.
+eleição neste software.
 
 \section{Sobre}
 
@@ -636,6 +636,112 @@ cifrados em uma coisa só, a contagem,  e apenas a contagem é decifrada, não
 revelando nenhuma informação adicional, a não ser pelo resultado.
 
 \section{Informações relevantes para auditoria}
+
+\lstset{
+    string=[s]{"}{"},
+    stringstyle=\color{blue},
+    comment=[l]{:},
+    commentstyle=\color{black},
+}
+
+O esquema proposto pelo Helios já provêm diversas garantias para que sua
+auditoria seja realizada de forma transparente e aberta ao público.
+Disponibiliza diversos \textit{endpoints} que fornecerem informações relevantes
+para a verificação da eleição. Como a lista dos eleitores aptos, de forma que
+essa lista pode ser por meios de pseudônimos para evitar a divulgação de
+informações, mas caso a lista seja pública, não há a necessidade de se utilizar
+pseudônimos. Todas as informações são disponibilizadas em formato JSON.
+
+Exemplo de lista de eleitores
+
+\begin{lstlisting}[numbers=none]
+[
+   {
+      "id":"vinicius.macelai@gmail.com",
+      "name":"Vinicius Macelai",
+      "type":"email",
+      "uuid":"60435862-65e3-11de-8c90-001b63948875"
+   },
+   {
+      "id":"ben@adida.net",
+      "name":"Ben2 Adida",
+      "type":"email",
+      "uuid":"4e8674e2-65e3-11de-8c90-001b63948875"
+   }
+   ...
+]
+\end{lstlisting}
+
+Há também um \textit{endpoint} que disponibiliza todas as questões da eleição, essa também é uma informação relevante para auditoria, visto que, uma vez publicado essas informações, teoricamente não deveria ser possível de se alterar qualquer dado de uma das questões. Sendo necessário guardar esse histórico para comparar com o que realmente aconteceu.
+
+Exemplo da estrutura das questões
+
+\begin{lstlisting}[numbers=none]
+
+[
+   {
+      "answer_urls":[
+         "",
+         ""
+      ],
+      "answers":[
+         "Sim",
+         "Nao"
+      ],
+      "choice_type":"approval",
+      "max":1,
+      "min":0,
+      "question":"Pergunta 1",
+      "result_type":"absoluta",
+      "short_name":"Pergunta 1",
+      "tally_type":"homomorphic"
+   },
+   {
+      "answer_urls":[
+         "",
+         ""
+      ],
+      "answers":[
+         "Nao",
+         "Sim"
+      ],
+      "choice_type":"approval",
+      "max":1,
+      "min":1,
+      "question":"Segunda pergunta",
+      "result_type":"absoluta",
+      "short_name":"Segunda pergunta",
+      "tally_type":"homomorphic"
+   }
+   ...
+]
+
+\end{lstlisting}
+
+Já para os votos, há um outro \textit{endpoint} que revela algumas informações
+sobre os votos, não há como acessar o voto, nem mesmo cifrado. Apenas é
+possível verificar a hora que foi votado, o hash do voto e do eleitor, e a
+identificação do eleitor. Isto é importante para verificar que um determinado
+foi computado e não excluído, além de ser possível, relacionar o identificador
+do eleitor na tabela de votantes, para saber que nenhuma pessoa que não era
+apta a votar, votou.
+
+Exemplo da estrutrutura de um voto.
+\begin{lstlisting}[numbers=none]
+
+[
+ {
+    "cast_at": "2019-10-10 10:44:27.622007",
+    "vote_hash": "ii3clNdJarrMZ+du5t9xRe5m3+agnrm67YSsdIwPRHs",
+    "voter_hash": "1HY5y0fXMqxapWNqCf82K2BpVrAWPKmtS9hN5YqL7jc",
+    "voter_uuid": "c0157d63-b7a9-49e9-8021-9d35d3c83ea9"
+  }
+  ...
+]
+
+\end{lstlisting}
+
+
 
 \chapter{Desenvolvimento}
 
