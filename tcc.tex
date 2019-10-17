@@ -140,7 +140,7 @@ Ainda, visa implementar uma solução que integre todas estas partes, um módulo
 para um sistema de eleição eletrônico que permite ter informações sobre o
 votante de forma confiável. Além disso, almeja possibilitar a realização da
 verificação de integridade da eleição, além de detectar alguma tentativa de
-mudança dos earâmetros da votação já pré-definidos em uma blockchain de forma
+mudança dos parâmetros da votação já pré-definidos em uma blockchain de forma
 descentralizada e pública.
 
 Por fim, realizar um estudo do custo operacional para rodar tal esquema. De
@@ -758,7 +758,7 @@ determinado foi computado e não excluído, além de ser possível, relacionar o
 identificador do eleitor na tabela de votantes, para saber que nenhuma pessoa
 que não era apta a votar, votou.
 
-Exemplo da estrutrutura de um voto.
+Exemplo da estrutura de um voto.
 \begin{lstlisting}[numbers=none]
 
 [
@@ -873,86 +873,44 @@ relevantes para a auditoria de um processo de votação. Para acessar essas
 informações, foram criados \textit{endpoits} para fornecer as informações, de
 forma que, apenas as relevantes são buscadas, evitando redundâncias e
 informações desnecessárias. Foi decidido de não alterar os \textit{endpoits}
-originais para não causar uma pertubação no sistema. Os criados foram:
-
+originais para não causar uma pertubação no sistema. Para os votos, não foi
+necessário nenhuma mudança no que já havia. Os criados foram:
 
 \begin{itemize}
-	\item GET `elections/<election\_uuid>/blockchain' retorna certas
+	\item GET `elections/<election\_uuid>/blockchain' retorna 
 		informações públicas da eleição
-	\item GET `elections/<election\_uuid>/blockchain/voters' retorna certas
+	\item GET `elections/<election\_uuid>/blockchain/voters' retorna 
 		informações públicas dos eleitores
-	\item GET `elections/<election\_uuid>/blockchain/result' retorna certas
+	\item GET `elections/<election\_uuid>/blockchain/result' retorna
 		informações sobre o resultado
 \end{itemize}
 
-Já para os votos, não foi necessário nenhuma mudança no que já havia.
+Nas configurações do projeto, foi adicionado uma variável de ambiente contendo
+o \textit{keystore}, que é um arquivo em formato JSON, com os dados de uma
+carteira \textit{Ethereum}, contendo a chave privada, a cifra usada para
+guardar a chave privada e os demais atributos.
 
+\begin{lstlisting}[language=Python, numbers=none]
+KEYSTORE = "/home/Helios/keystore.json"
+KEYSTORE_PASSWORD = "TXv?m!U;9Q#%KMa"
+\end{lstlisting}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{helios-1}
-	\caption{Painel administrativo de uma eleição}
-	\label{fig:helios-1}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{helios-2}
-	\caption{Painel administrativo de resultado}
-	\label{fig:helios-2}
-\end{figure}
-
-
+Esse \textit{keystore} será usado para criar e assinar as transações e popular
+os contratos com os dados da votação. Vale notar que a carteira já deve contar
+com fundos necessários para arcar com o funcionamento dos contratos.
 
 \section{Contratos inteligentes}
 
-\subsection{Descrição do contrato}
+\subsection{Eleitores}
+
+O contrato dos eleitores serve para basicamente saber qual é a lista os
+eleitores, e o contrato pode variar de acordo com a votação.  Por exemplo,
+existem eleições onde a privacidade dos dados dos eleitores deve ser
+respeitada, de forma que seu nome e email não devem divulgados, para isso,
+bastaria uma pequena mudança no contrato a seguir, alterando o nome para um
+pseudônimo e a retirada do email.
 
 \begin{lstlisting}[language=Solidity]
-
-pragma solidity ^0.5.11;
-pragma experimental ABIEncoderV2;
-
-contract Result {
-    
-    struct Question {
-        string question;
-        int result;
-    }
-    
-    Question[] public questions;
-    string public voters_hash;
-    uint256 public relesed_at;
-    
-    function addQuestion(string memory _question, int _result) public {
-        questions.push(Question(_question, _result));
-    }
-    
-    function setVotersHash(string memory _voters_hash) public {
-        voters_hash = _voters_hash;
-    }
-    
-    function setReleaseAt(uint256 _relesed_at) public {
-        relesed_at = _relesed_at;
-    }
-}
-
-contract Votes {
-    
-    struct Vote {
-        string vote_hash;
-        uint256 cast_at;
-    }
-    
-    Vote[] public votes;
-    
-    function addVote(string memory _vote_hash, uint256 _cast) public {
-        votes.push(Vote(_vote_hash, _cast));
-    }
-    
-}
-
-
 contract Voters{
     
     struct Voter {
@@ -967,13 +925,74 @@ contract Voters{
         voters.push(Voter(_uuid, _name, _email));
     }
 }
+\end{lstlisting}
 
+Uma vez populado os eleitores no Helios, bastaria popula-los no contrato
+também. Como já visto anteriormente, a lista de eleitores não pode ser
+modificado uma vez que a eleição é congelada, portanto, uma adição de um
+eleitor não qualificado para a eleição, não estaria nos dados do contrato,
+constando uma fraude.
+
+\subsection{Votos}
+
+O contrato dos votos contêm uma peculiaridade, dado que será o único contrato
+que não será populado pelo servidor Helios, visto que este será populado ao
+decorrer do processo, diferente dos demais, os quais serão populados
+previamente.  Essa decisão foi tomado levando em conta os seguintes aspectos,
+caso o servidor do Helios fosse invadido, um atacante poderia não publicar o
+voto, ou até mesmo, mudar o hash do voto para causar alguma confusão. 
+
+A premissa é que o eleitor é honesto, tanto o esquema proposto pelo Helios,
+quanto o desse trabalho, não há como garantir que caso algum votante alegue que
+o seu voto não foi computado, ou aquele voto associado a ele não foi ele que
+emitiu, não há como garantir ou provar nenhuma informação.
+
+\begin{lstlisting}[language=Solidity]
+contract Votes {
+    
+    struct Vote {
+        string vote_hash;
+        string voters_hash;
+        uint256 cast_at;
+    }
+    
+    Vote[] public votes;
+    
+    function addVote(string memory _vote_hash, string memory _voters_hash, uint256 _cast) public {
+        votes.push(Vote(_vote_hash, _voters_hash, _cast));
+    }
+    
+}
+\end{lstlisting}
+
+Vale notar aqui que o voto cifrado não é publicado, apenas o seu hash. Essa
+decisão foi tomada pelo fato que a criptografia utilizada nos dias de hoje,
+como ElGamal pode não ser segura no futuro, como já temos exemplos de
+primitivas criptográficas no passado. CITAR PAPER
+
+Partindo da premissa que o eleitor é honesto, então, isso seria uma prova que o
+seu voto existiu em dado momento, e que, se ele não estiver na hora da apuração
+do resultado, algo de errado houve com os votos, invalidando a votação.
+
+\subsection{Eleição}
+
+O contrato eleição é o principal, ele vai ser instanciado uma vez por votação e
+o mesmo contêm os outros contratos instanciados como variáveis do contrato.
+Além do mais irá conter as informações gerais sobre a votação, como o seu
+\textit{uuid}, que é seu identificador único, o nome da votação, a URL que será
+usada para votar, a data de criação, horário que irá abrir e fechar para os
+votos, além de conter todas as perguntas e respostas e a chave pública da
+votação, que é utilizada na hora da contagem e auditoria do votos, em provas de
+conhecimento zero.
+
+\begin{lstlisting}[language=Solidity]
 contract Election {
     
     string public uuid;
     string public name;
     string public cast_url;
     uint256 public created_at;
+    uint256 public frozen_at;
     uint256 public voting_starts;
     uint256 public voting_ends;
     
@@ -997,8 +1016,7 @@ contract Election {
     Votes public votes_contract;
     Result public result_contract;
     
-    constructor(string memory _uuid, string memory _name, string memory _cast_url, uint256 _created_at, uint256 _voting_starts, uint256 _voting_ends,
-                string memory _p, string memory _q, string memory _g, string memory _y) public {
+    constructor(string memory _uuid, string memory _name, string memory _cast_url, uint256 _created_at, uint256 _voting_starts, uint256 _voting_ends, uint256 _voting_ends, string memory _p, string memory _q, string memory _g, string memory _y) public {
         uuid = _uuid;
         name = _name;
         cast_url = _cast_url;
@@ -1017,7 +1035,58 @@ contract Election {
     
 }
 
+
 \end{lstlisting}
+
+Assim que configurado toda a votação, esse contrato seria populado com todos os dados da eleição
+
+
+\subsection{Resultado}
+
+\begin{lstlisting}[language=Solidity]
+contract Result {
+    
+    struct Question {
+        string question;
+        int result;
+    }
+    
+    Question[] public questions;
+    string public voters_hash;
+    uint256 public relesed_at;
+    
+    function addQuestion(string memory _question, int _result) public {
+        questions.push(Question(_question, _result));
+    }
+    
+    function setVotersHash(string memory _voters_hash) public {
+        voters_hash = _voters_hash;
+    }
+    
+    function setReleaseAt(uint256 _relesed_at) public {
+        relesed_at = _relesed_at;
+    }
+}
+\end{lstlisting}
+
+\section{Processo do voto}
+
+No painel de administração de uma eleição, que só pode ser acessada por um usuário com privilégios, foi adicionado um botão para publicar os dados da eleição na blockchain.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{helios-1}
+	\caption{Painel administrativo de uma eleição}
+	\label{fig:helios-1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{helios-2}
+	\caption{Painel administrativo de resultado}
+	\label{fig:helios-2}
+\end{figure}
+
 
 \section{Custo financeiro}
 
@@ -1123,7 +1192,7 @@ custo. Podendo ser otimizado de acordo com a necessidade do processo de
 votação, como excluir certas informações dos contratos. Outra coisa a ser
 levada em conta é a maturidade das linguagens de programação para os contratos,
 de forma que, com a maturidade dessas linguagens, poderá ser feito de maneira
-mais otimzada.
+mais otimizada.
 
 Outra possibilidade para a avaliação de redução de custos seria a utilização de
 outras \textit{blockchains}, visto que, cada uma detêm de características
