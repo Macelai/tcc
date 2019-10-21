@@ -1,6 +1,6 @@
 \documentclass{ufsctex/ufsctex}
 
-\usepackage{graphicx, enumitem, listings, float}
+\usepackage{graphicx, enumitem, listings, float, pgfplots}
 \graphicspath{{./images/}}
 \input{solidity-highlighting.tex}
 
@@ -1043,6 +1043,12 @@ Assim que configurado toda a votação, esse contrato seria populado com todos o
 
 \subsection{Resultado}
 
+O contrato do resultado é para divulgar o resultado individual de cada
+pergunta, além do horário que foi divulgado, e o mais importante é o hash dos
+eleitores, pois como o contrato dos eleitores foi populado previamente, é
+possível calcular novamente, para saber que apenas os votantes que tinham
+direito de votar, votaram.
+
 \begin{lstlisting}[language=Solidity]
 contract Result {
     
@@ -1069,7 +1075,9 @@ contract Result {
 }
 \end{lstlisting}
 
-\section{Processo do voto}
+\section{Fluxo de uma eleição}
+
+Agora será mostrado, como seria o novo fluxo de eleição
 
 No painel de administração de uma eleição, que só pode ser acessada por um usuário com privilégios, foi adicionado um botão para publicar os dados da eleição na blockchain.
 
@@ -1095,6 +1103,11 @@ principal da \textit{Ethereum}, de forma para rodar este protótipo.
 Primeiramente, é estimado o custo individual de cada contrato, já que cada um
 tem suas peculiaridades. Então é estimado e analisado em uma eleição hipotética
 com mil eleitores.
+
+Os construtores são as chamadas mais custosas, uma vez que são responsáveis por
+instanciar memória não volátil na rede \textit{Ethereum}, que são as instruções
+mais caras. Logo, o construtor do contrato "eleição" será o mais caro, pois ele
+contêm todos os outros contratos em seus atributos.
 
 Considerando o preço do \textit{Gas} utilizado em 25 \textit{gwei}, e o preço de um
 \textit{Ether} em 169 dólares em média. Dados obtidos em 25/09/2019.
@@ -1149,7 +1162,10 @@ setReleasedAt & 42164  & \$0.17 \\ \hline
 	\label{tab:my-table}
 \end{table}
 
-Agora, é estimado um processo de eleição para mil eleitores.
+Agora, será estimado uma votação hipotética, composta por mil eleitores, três
+questão e levando em consideração que a 10\% dos eleitores tenham votado duas
+vezes, visto que é permitido votar mais de uma vez e é considerado apenas o
+último. As chamadas para os contratos seriam a seguinte:
 
 \begin{enumerate}
 	\item 1x construtor do contrato eleição.
@@ -1161,7 +1177,37 @@ Agora, é estimado um processo de eleição para mil eleitores.
 	\item 1x setReleasedAt do contrato resultado.
 \end{enumerate}
 
-Dando um total de \textbf{1248.54 Dólares}
+Considerando os valores calculados nas tabelas anteriores temos um total de
+\textbf{1248.54 Dólares} para rodar todo processo, até mesmo a divulgação do
+resultado.
+
+Fica claro que o maior custo está associado a adicionar os dados dos eleitores
+e no momento de publicar a estrutra do voto. Dado que o custo para publicar os
+outros dados, ficam marginais de acordo com a quantidade. Como é mostrado no
+gráfico a seguir.
+
+\begin{tikzpicture}{}
+	\begin{axis}[
+		symbolic x coords={1000, 5000, 10000},
+		xtick=data,
+		ylabel={Eleitores},
+		xlabel={Dólares},
+		yticklabel style={
+        scaled y ticks = false, 
+        scaled x ticks = false, 
+        y tick label style={/pgf/number format/.cd, fixed, fixed zerofill,
+                            int detect,1000 sep={\;},precision=3},
+        x tick label style={/pgf/number format/.cd, fixed, fixed zerofill,
+                            int detect, 1000 sep={},precision=3}
+			},
+	  ]
+		\addplot[ybar,fill=green] coordinates {
+			(1000,   1248)
+			(5000,  6240)
+			(10000, 12480)
+		};
+	\end{axis}
+\end{tikzpicture}
 
 \chapter{Conclusão}
 Neste trabalho, foi desenvolvido um esquema e uma implementação de um módulo
