@@ -878,11 +878,13 @@ necessário nenhuma mudança no que já havia. Os criados foram:
 
 \begin{itemize}
 	\item GET `elections/<election\_uuid>/blockchain' retorna 
-		informações públicas da eleição
+		informações do contrato inteligente.
+	\item GET `elections/<election\_uuid>/blockchain/election' retorna 
+		informações públicas da eleição.
 	\item GET `elections/<election\_uuid>/blockchain/voters' retorna 
-		informações públicas dos eleitores
+		informações públicas dos eleitores.
 	\item GET `elections/<election\_uuid>/blockchain/result' retorna
-		informações sobre o resultado
+		informações sobre o resultado.
 \end{itemize}
 
 Nas configurações do projeto, foi adicionado uma variável de ambiente contendo
@@ -898,6 +900,15 @@ KEYSTORE_PASSWORD = "TXv?m!U;9Q#%KMa"
 Esse \textit{keystore} será usado para criar e assinar as transações e popular
 os contratos com os dados da votação. Vale notar que a carteira já deve contar
 com fundos necessários para arcar com o funcionamento dos contratos.
+
+Além de uma outra variável de ambiente que contem o endereço do contrato
+inteligente. De forma ao acessar esse endereço, irá ser possível consultar o
+estado atual do contrato.
+
+\begin{lstlisting}[language=Python, numbers=none]
+	CONTRACT_ADRESS = "0x692a70D2e424a56D2C6C27aA97D1a
+								86395877b3A"
+\end{lstlisting}
 
 \section{Contratos inteligentes}
 
@@ -1077,16 +1088,41 @@ contract Result {
 
 \section{Fluxo de uma eleição}
 
-Agora será mostrado, como seria o novo fluxo de eleição
+Agora será mostrado, como seria o fluxo de uma eleição. Um usuário
+administrador deverá criar a eleição, sem nenhuma alteração do fluxo normal do
+Helios, então deve criar as perguntas e respostas, então carregar os eleitores
+aptos a votar, uma vez finalizada todas as configurações, a votação deve ser
+congelada para então os dados serem publicados na \textit{blockchain}.
 
-No painel de administração de uma eleição, que só pode ser acessada por um usuário com privilégios, foi adicionado um botão para publicar os dados da eleição na blockchain.
+No painel de administração de uma eleição, que só pode ser acessada por um
+usuário com privilégios, foi adicionado um botão para publicar os dados da
+eleição na blockchain.
 
-\begin{figure}[H]
+\begin{figure}[]
 	\centering
 	\includegraphics[width=\linewidth]{helios-1}
 	\caption{Painel administrativo de uma eleição}
 	\label{fig:helios-1}
 \end{figure}
+
+Ao clicar no botão para publicar os dados na \textit{blockchain}, isso irá
+fazer uma requisição HTTP para as rotas definida na seção anterior, que
+então, constrói uma transação para popular o contrato da eleição com os seus
+dados.
+
+Para o voto, não foi necessário adicionar nenhum botão a mais, ao clicar em
+submeter o voto, ele irá computar os dados necessários e então criar a
+transação para o contrato da eleição.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{helios-voting}
+	\caption{Confirmação do voto}
+	\label{fig:helios-2}
+\end{figure}
+
+Uma vez finalizada e computada o resultado da eleição, há também um outro botão
+para realizar a publicação do resultado.
 
 \begin{figure}[H]
 	\centering
@@ -1095,6 +1131,19 @@ No painel de administração de uma eleição, que só pode ser acessada por um 
 	\label{fig:helios-2}
 \end{figure}
 
+Da mesma forma como é feito com os dados iniciais da eleição, irá realizar uma
+requisição HTTP para a rota definida na seção anterior, para construir a
+transação e publicar os dados.
+
+De maneira geral, a utilização da blockchain neste processo, pode ser
+simplificada da seguinte maneira:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{helios-2}
+	\caption{Painel administrativo de resultado}
+	\label{fig:helios-2}
+\end{figure}
 
 \section{Custo financeiro}
 
@@ -1102,14 +1151,17 @@ Nesta seção, estima-se os custos de transação cobrados para rodar na rede
 principal da \textit{Ethereum}, de forma para rodar este protótipo.
 Primeiramente, é estimado o custo individual de cada contrato, já que cada um
 tem suas peculiaridades. Então é estimado e analisado em uma eleição hipotética
-com mil eleitores.
+com mil eleitores. 
 
 Os construtores são as chamadas mais custosas, uma vez que são responsáveis por
 instanciar memória não volátil na rede \textit{Ethereum}, que são as instruções
 mais caras. Logo, o construtor do contrato "eleição" será o mais caro, pois ele
-contêm todos os outros contratos em seus atributos.
+contêm todos os outros contratos em seus atributos. Vale notar que isso será
+chamado apenas uma vez por votação, uma vez que o contrato é publicado.
 
-Considerando o preço do \textit{Gas} utilizado em 25 \textit{gwei}, e o preço de um
+Para calcular a quantidade de \textit{Gas} utilizada em cada função, foi
+utilizado da ferramenta \textit{Remix}, que é uma IDE online. Considerando o
+preço do \textit{Gas} utilizado em 25 \textit{gwei}, e o preço de um
 \textit{Ether} em 169 dólares em média. Dados obtidos em 25/09/2019.
 
 \begin{table}[htb]
