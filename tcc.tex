@@ -1,6 +1,9 @@
 \documentclass{ufsctex/ufsctex}
 
-\usepackage{graphicx, enumitem, listings, float, pgfplots}
+\usepackage{graphicx, enumitem, listings, float, pgfplots, tikz}
+
+\usetikzlibrary{er,positioning}
+
 \graphicspath{{./images/}}
 \input{solidity-highlighting.tex}
 
@@ -14,16 +17,16 @@
 \local{Florianópolis}
 \data{01}{novembro}{2019}
 \orientador[Orientador]{Prof.\ Dr.\ Jean Everson Martina}
-\coordenador[Coordenador]{Prof.\ Me.\ José Francisco Danilo de Guadalupe Correa
+\coordenador[Coordenador]{Prof.\ José Francisco Danilo de Guadalupe Correa
 Fletes}
 
 \numerodemembrosnabanca{2}
 \orientadornabanca{nao}
 \coorientadornabanca{nao}
-\bancaMembroA{Me. Fernando Pereira \\
+\bancaMembroA{Fernando Pereira Me.\\
   Universidade Federal de Santa Catarina
 }
-\bancaMembroB{Gustavo Zambonim \\
+\bancaMembroB{Gustavo Zambonim Bel.\\
   Universidade Federal de Santa Catarina
 }
 
@@ -58,32 +61,37 @@ caminhada.
 países continuam a ser realizadas de  forma manual, com cédulas na forma de
 papel. Tal modelo traz problemas enormes de logística e um alto custo para
 funcionamento devido aos requisitos de uma eleição segura, que deve fornecer
-privacidade, transparência, verificabilidade e confiabilidade. Já as  abordagens
-eletrônicas  via internet, ainda carregam desconfiança	sobre manter estas
-propriedades.  Uma possível solução para melhorar uma abordagem eletrônica seria
-utilizar uma blockchain para melhorar sua auditabilidade, que é o ponto mais
-questionado nesse esquema. A blockchain possui propriedades intrínsecas, como a
-imutabilidade dos dados, e com esquemas utilizando contratos inteligentes na
-blockchain é possível realizar a verificação dos votos de forma descentralizada
-e  aberta ao público. Assim, cria-se um sistema que mantém as propiedades
-citadas anteriormente, com um baixo custo e menor necessidade de confiar em uma
-entidade central.} 
-\palavrasChave{criptografia, eleições, democracia,
-blockchain, contratos inteligentes}
+privacidade, transparência, auditabilidade e confiabilidade. Já as
+abordagens eletrônicas  via internet, ainda carregam desconfiança	sobre
+manter estas propriedades.  Uma possível solução para melhorar uma abordagem
+eletrônica seria utilizar uma blockchain para melhorar sua auditabilidade, que
+é o ponto mais questionado nesse esquema. A \textit{blockchain} possui
+propriedades intrínsecas, como a imutabilidade dos dados, e com esquemas
+utilizando contratos inteligentes na blockchain é possível realizar a
+verificação dos votos de forma descentralizada e  aberta ao público. Assim,
+cria-se um sistema que mantém as propiedades citadas anteriormente, com um
+baixo custo e menor necessidade de confiar em uma entidade central.}
 
-\textAbstract{As approaches used in the selection systems of most remaining
-countries an executed service manual with paper banknotes. Such a model brings
-huge logistical problems and a high cost of operation due to requirements of a
-safe selection, which should provide privacy, transparency, verifiability and
-requirements. Already the electronic approaches via internet, still carry
-distrust about maintaining these properties.  A possible solution to improve an
-electronic approach would be to use a blockchain to improve your auditability,
-which is the most questioned point in this scheme. A blockchain has intrinsic
-properties such as data immutability and schemas smart contracts on blockchain
-it is possible to check votes decentralized and open to the public. Thus, a
-system is created that maintains as properties mentioned above, with a low cost
-and the least need to rely on a central entity.}
-\keywords{crypto, elections, democracy, blockchain, smart contracts}
+\palavrasChave{criptografia, eleições, democracia, blockchain, contratos
+inteligentes, e-voting}
+
+\textAbstract{
+
+As approaches used in the election systems of most countries are executed
+manually with paper banknotes. Such a model brings huge logistical problems and
+a high cost of operation due to requirements of a safe election, which should
+provide privacy, transparency, auditability and requirements. The electronic
+approaches by internet, still carry mistrust about maintaining these
+properties. On the other hand, a possible solution to improve an electronic
+approach would be to use a blockchain to improve the auditability, which is the
+most questioned point in this scheme. A blockchain has intrinsic properties
+such as data immutability and schemas with smart contracts, it is possible to
+check votes decentralized and in a decentralized manner while still open to the
+general public, Thus, a system is designed to maintains the properties
+mentioned above, with a low cost and lower needs to rely on a central entity.}
+
+\keywords{cryptography, elections, democracy, blockchain, smart contracts,
+e-voting}
 
 \begin{document}
 
@@ -97,51 +105,55 @@ and the least need to rely on a central entity.}
 
 \listadeabreviaturas{}
 
-\listadesimbolos{}
-
 \sumario{}
 
 \chapter{Introdução} Ainda que vivamos no momento onde tudo é digital e façamos
-as mais diversas tarefas de maneira eletrônica e online, quando o assunto é
-votação no meio eletrônico, existem as mais diversas e controversas opiniões a
-respeito.
+as mais diversas tarefas de maneira eletrônica e online, desde transações
+bancárias de valores consideravelmente significativos, até troca de mensagens
+sensíveis. Quando o assunto é votação no meio eletrônico, existem as mais
+diversas e controversas opiniões a respeito. 
 
-No Brasil, eleições eletrônicas têm sido utilizadas por mais de 20 anos e testes
-recentes mostram que, mesmo com o desenvolvimento durante todo esse período, o
-atual sistema não consegue se mostrar realmente seguro\cite{aranha}. O maior
-problema com a solução proposta pelo Governo Brasileiro é a falta de
-auditabilidade, em que só é possível se voluntariar para testar o sistema em um
-ambiente controlado. Ainda durante o processo eleitoral, é necessário confiar
-cegamente no sistema, não há instrumento nenhum que permita verificar se o voto
-foi realmente computado.
+No Brasil, eleições eletrônicas têm sido utilizadas por mais de 20
+anos \cite{AranhaKMS14} e testes recentes mostram que, mesmo com o
+desenvolvimento durante todo esse período, o atual sistema não consegue ser
+realmente seguro \cite{aranha}. O maior problema com a solução proposta pelo
+Governo Brasileiro é a falta de auditabilidade, em que só é possível se
+voluntariar para testar o sistema em um ambiente controlado. Ainda durante o
+processo eleitoral, é necessário confiar cegamente no sistema, não há
+instrumento nenhum que permita verificar se o voto foi realmente computado.
 
 Os sistemas de votação eletrônicos atuais se baseiam em esquemas que utilizam de
 criptografia homomórfica, que permite que dados cifrados possam ser processados
 sem serem decifrados, assim garantindo propriedades importantes para o
-sistema.\cite{springer}. Entretanto, esses esquemas são utilizados de forma
+sistema. \cite{springer}. Entretanto, esses esquemas são utilizados de forma
 centralizada, rodando apenas em um servidor central, sem a possibilidade de tais
-informações serem acessadas pelo o público em geral de maneira transparente.
+informações serem acessadas pelo público em geral de maneira transparente.
 
 Para realizar a auditoria das votações, é possível utilizar da tecnologia
-blockchain, que são bases de registro de dados distribuídos e compartilhados,
-desta forma criando um consenso e confiança sobre o estado atual do
-sistema.\cite{nakamoto2012bitcoin}.  Garantir essas propriedades intrínsecas,
-como a imutabilidade dos dados, é um bom sistema para manter o registro dos
-votos, além da possibilidade de rodar contratos inteligentes que podem processar
+\textit{blockchain}, ou "encadeamento de blocos" em tradução livre, que são
+bases de registro de dados distribuídos e compartilhados, desta forma criando
+um consenso e confiança sobre o estado atual do sistema.
+\cite{nakamoto2012bitcoin}. Garantir propriedades intrínsecas, como a
+imutabilidade dos dados, é um ótimo sistema para manter o registro dos votos.
+De forma que, o voto tem garantia que não será alterado por um atacante, além
+de um verificação \textit{a posteriori} sobre a inclusão do voto na apuração da
+eleição.
+
+Além da possibilidade de rodar contratos inteligentes, que conseguem processar
+algoritmos mais complexos que apenas a \textit{blockchain}, podendo processar
 os votos de maneira descentralizadas junto com a criptografia homomórfica para
-garantir o anonimato.
+garantir o anonimato. Neste trabalho, optou-se por enfatizar o estudo e a
+utilização da blockchain e protocolo Ethereum, a qual fornece contratos
+inteligentes de alto nível \cite{ethereum}.  Apresenta-se um esquema que
+utiliza esses contratos para garantir as propriedades já citadas, além do
+estudo de seu impacto financeiro.
 
-Neste trabalho, optou-se por enfatizar o estudo e a utilização da blockchain e
-protocolo Ethereum, a qual fornece contratos inteligentes de alto
-nível\cite{ethereum}.  Apresenta-se um esquema que utiliza esses contratos para
-garantir as propriedades já citadas, além do estudo de seu impacto financeiro.
-
-Ainda, visa implementar uma solução que integre todas estas partes, um módulo
-para um sistema de eleição eletrônico que permite ter informações sobre o
-votante de forma confiável. Além disso, almeja possibilitar a realização da
-verificação de integridade da eleição, além de detectar alguma tentativa de
-mudança dos parâmetros da votação já pré-definidos em uma blockchain de forma
-descentralizada e pública.
+Ainda, visa implementar uma solução, na forma de um módulo, que integre todas
+estas partes, um módulo para um sistema de eleição eletrônico que permite ter
+informações sobre o votante de forma confiável. Além, almeja possibilitar a
+realização da verificação de integridade da eleição, além de detectar alguma
+tentativa de mudança dos parâmetros da votação já pré-definidos em uma
+blockchain de forma descentralizada e pública.
 
 Por fim, realizar um estudo do custo operacional para rodar tal esquema. De
 maneira a definir individualmente cada custo com o esquema proposto e realizar
@@ -150,23 +162,23 @@ uma discussão para saber até que ponto seria economicamente viável tal modelo
 \section{Motivação}
 
 Os modelos de eleição utilizados nos dias de hoje são em sua maioria em cédulas
-de papel. Dependendo da dimensão da votação, isso externaliza grandes problemas,
-no que concerne à logística, que tem como consequência um aumento de custos. Já
-as abordagens que utilizam do meio eletrônico e online, geram grande
+de papel. Dependendo da dimensão da votação, isso externaliza grandes
+problemas, no que tange à logística, que tem como consequência um aumento de
+custos. Já as abordagens que utilizam do meio eletrônico e online, geram grande
 desconfiança para a maioria das partes interessadas, com receio que o resultado
-seja hackeado e alterado. Consequentemente há uma demanda por um modelo de
-votação que seja mais auditável e aberto para sanar esse problema de
+seja alterado por partes maliciosas. Consequentemente há uma demanda por um
+modelo de votação que seja mais auditável e aberto para sanar esse problema de
 desconfiança.
 
 \section{Justificativa}
 
-Este tema foi escolhido devido sua grande importância, uma uma vez impacta
+Este tema foi escolhido devido sua grande importância, uma vez que impacta
 basicamente todos os setores da sociedade, pois existem votações nas mais
-diversas esferas, desde a governança de empresas, até consultas de opinião sobre
-assuntos delicados.  Além dos pontos anteriores citados, a utilização da recente
-tecnologia blockchain para a solução destes problemas é uma grande inovação na
-área. Este trabalho visa contribuir com modelos mais eficientes e transparentes,
-que beneficiarão a sociedade como um todo.
+diversas esferas, desde a governança de empresas, até consultas de opinião
+sobre assuntos delicados.  Além dos pontos anteriores citados, a utilização da
+recente tecnologia blockchain para a solução destes problemas é uma grande
+inovação na área. Este trabalho visa contribuir com modelos mais eficientes e
+transparentes, que beneficiarão a sociedade como um todo.
 
 \section{Pergunta de pesquisa}
 
@@ -180,31 +192,31 @@ contratos inteligentes na blockchain, juntamente com o cálculo econômico.
 \begin{itemize}
 	\item É possível criar um modelo de eleição eletrônica utilizando blockchain
 		para fornecer maior auditabilidade.
-	\item É viável utilizar a blockchain Ethereum até qual volume dados.
-	\item É economicamente viável esse modelo.
+	\item É viável utilizar a blockchain Ethereum de maneira escalável.
+	\item O modelo proposto economicamente viável esse modelo.
 \end{itemize}
 
 \section{Objetivo geral}
 
-Estudar e criar a implementação de um sistema online de eleição, com foco
+Desenvolver e implementar um módulo para um sistema online de eleição, com foco
 principal na parte de realizar auditoria e verificação dos votos em blockchain
-com auxílio de contratos inteligentes, utilizando um sistema já desenvolvido.
-Além disso, analisar as implicações que esse sistema teria no funcionamento e
-custos de uma eleição. \\
+com auxílio de contratos inteligentes. Além disso, analisar as implicações que
+esse sistema teria no funcionamento e custos de uma eleição.
 
-\section{Objetivo específico}
+\section{Objetivos específicos}
 
 \begin{enumerate}[label=\roman*.]
 	\item Analisar o estado da arte: estudar as principais soluções
 	já propostas na literatura com o objetivo de identificar problemas
 	e oportunidades para melhorar o trabalho.
-	\item Implementar possibilidade de verificação na blockchain:
-	Criação de  um módulo para tornar o sistema mais auditável e 
-	verificável para o público em geral.
+	\item Desenvolvimento teórico do modelo para aumentar a auditabilidade.
+	\item Implementação de um módulo para tornar o sistema mais auditável e
+		verificável para o público em geral. No qual será usado o Helios
+		Voting, que será apresentado em um próximo capítulo.
 	\item Comparar e analisar as consequências do esquema.
 \end{enumerate}
 
-\section{Metodologia}
+\section{Método}
 
 O trabalho será desenvolvido utilizando a infraestrutura e recursos do
 Laboratório de Segurança em Computação (LabSEC/UFSC), em que será estudada a
@@ -216,11 +228,10 @@ inteligentes.  Frisando suas vantagens e desvantagens e seus custos.
 
 Espera-se contribuir para o estado da arte em eleição eletrônica utilizando
 blockchain de forma que aumente a transparência e a auditabilidade do processo.
-É esperado também que tal abordagem tenha um gargalo no volume de dados
-processados, visto que a tecnologia blockchain por ser descentralizada, não
-conseguirá processar diversas transações por segundo. Além de que, como há muito
-processamento de dados, devido a criptografia homomórfica, tende a ser inviável
-economicamente para casos onde não há necessidade de tanta segurança.
+Deseja-se também identificar a limitação superior do volume de dados
+processados, por conta de que a tecnologia blockchain por ser descentralizada,
+não conseguirá processar diversas transações por segundo. Juntamente com a
+constatação do custo financeiro.
 
 \chapter{Revisão Sistemática}
 
@@ -234,7 +245,7 @@ existência com a \textit{blockchain}. Foi decidido realizar uma revisão
 sistemática para garantir que não haja vieses na revisão do estado da arte. A
 revisão sistemática segue um método de seleção e análise de dados e trabalhos
 definidos anteriormente da revisão em si, em um processo rígido e bem definido,
-evitando vieses.
+descrito na seção abaixo.
 
 \section{Definição da estratégia de busca}
 
@@ -256,30 +267,31 @@ digitais é bastante pesquisado. Entretanto foi verificado que esses trabalhos
 têm um objetivo diferente deste, onde eles utilizam da \textit{blockchain} e
 \textit{smart contracts} para realizar todo o processo da eleição, desde a
 criação de uma eleição, cadastro de pessoas autorizadas a votar e resultado
-final da eleição. Os trabalhos focam em realizar o processo inteiro em
-\textit{smart contracts}.
+final da eleição.
 
-Como no trabalho realizado com o objetivo de se ter eleições de larga escala
-com \textit{blockchain} é proposto um esquema de votos utilizando de
-criptografia homomórfica de ElGamal juntamente com assinaturas em anel.
-\cite{WANG2018234} Este esquema é amplamente conhecido e utilizados em outras
-implementações de eleições digitais, como por exemplo, no software Helios, que
-é um software de código aberto feito para eleições digitais verificáveis.
+Como no trabalho descrito por Wang, tem como objetivo de se ter eleições de
+larga escala com \textit{blockchain} é proposto um esquema de votos utilizando
+de criptografia homomórfica de ElGamal juntamente com assinaturas em anel para
+garantir as propriedades de anonimato, entretanto não há discussão de como
+realizar esse esquema na prática, não havendo análise de viabilidade de
+implementação em uma \textit{blockchain} real. \cite{WANG2018234} Este esquema
+é amplamente conhecido e utilizados em outras implementações de eleições
+digitais, como por exemplo, no software Helios, que é um software de código
+aberto feito para eleições digitais verificáveis.
 
 Já outros trabalhos não utilizam esquema nenhuma de criptografia para esconder
-o voto ou quem votava, apenas se baseava na hipótese de um endereço da
-\textit{blockchain} fosse seu pseudônimo. \cite{Yavuz2018} Essa abordagem é
-muito simples para a maioria dos casos e não garante propriedades como
-anonimidade do voto, visto que é possível rastrear as carteiras de uma
-\textit{blockchain} com análises estatísticas. \cite{Kosy2014}
+o voto ou o votante, apenas baseando-se na hipótese de um endereço da
+\textit{blockchain} ser um pseudônimo. \cite{Yavuz2018} Essa abordagem é muito
+simples para a maioria dos casos e não garante propriedades como anonimidade do
+voto, visto que é possível rastrear as carteiras de uma \textit{blockchain} com
+análises estatísticas. \cite{Kosy2014}
 
 
 \section{Conclusões}
 
 A abordagem deste trabalho se diferencia das pesquisadas na seção anterior. De
 forma que, esse esquema visa criar um módulo de \textit{blockchain} para um
-sistema de votação eletrônica já existente. No qual será usado o Helios Voting,
-que será apresentado em um próximo capítulo. O esquema visa publicar as
+sistema de votação eletrônica já existente. O esquema visa publicar as
 informações relevantes para uma auditoria, de maneira que os dados publicados
 sejam imutáveis.
 
@@ -296,13 +308,12 @@ algoritmos e ferramentas utilizadas ao longo do trabalho.
 
 Os conceitos descritos pela segurança da informação não estão restritos apenas
 a sistemas computacionais. O conceito pode ser aplicado a todos os aspectos de
-proteção de informações e dados. 
+proteção de informações e dados.
 
 No momento atual, estes conceitos estão padronizados pela norma ISO/IEC
 17799:2005, fortemente influenciada pelo padrão inglês BS 7799.
-
 Segundo a ISO/IEC 17799, os atributos básicos sobre segurança de informação
-são:
+são \cite{ISO17799}:
 
 \begin{itemize}
 	\item \textit{Confidencialidade}: Visa limitar o acesso da informação para
@@ -322,29 +333,29 @@ são:
 	\item \textit{Tempestividade}: Possibilita a comprovação que um determinado
 		episódio ocorreu em dado instante de tempo.
 \end{itemize}
-\cite{ISO17799}
 
-\section{Hash}
 
-Funções Hash são conhecidas também como funções de sentido único, o objetivo
+\section{Funções de resumo}
+
+Funções de resumo são conhecidas também como funções \textit{Hash}, o objetivo
 dessa função é de relevar uma pequena porção de informação sobre uma mensagem
-ou entrada de tamanho arbitrário.  Essa pequena quantidade de informação
+ou entrada de tamanho arbitrário. Essa pequena quantidade de informação
 relevada deve ter um tamanho suficiente para identificar a entrada de maneira
-única e o tamanho dessa saída deve ser fixo. Um requisito para o uso dessas
+única, vale notar que é muito improvável que existam duas mensagens com o mesmo
+resumo, e o tamanho dessa saída deve ser fixo. Um requisito para o uso dessas
 funções em criptografia é que ela deve ser computacionalmente difícil e
 intensiva para um atacante gerar duas entradas que geram o mesmo valor hash.
 \cite{cryptoschool}
 
-Definição: Seja $\mathcal{H} : X \longrightarrow Z$ um mapeamento entre dois
-conjuntos finitos X e Z. $\mathcal{H}$  é uma função de Hash.
-
-As propriedades da função $\mathcal{H}$ devem ser:
+Seja $\mathcal{H} : X \longrightarrow Z$ um mapeamento entre dois conjuntos
+finitos X e Z. $\mathcal{H}$  é uma função de resumo criptográfico se possuir
+as propriedades abaixo.
 
 \begin{itemize}
 
-	\item Eficiência: a verificação do resumo de $\mathcal{H}$(x) precisa ser
-	facilmente verificado.
-	\item A saída de $\mathcal{H}$ para um \textit{X} fixo deve ser sempre a
+	\item Eficiência: a verificação do resumo para qualquer $\mathcal{H}$(x)
+		precisa ser facilmente verificado.
+	\item A saída de $\mathcal{H}$ para um \textit{x} fixo deve ser sempre a
 		mesma.
 
 \end{itemize}
@@ -354,35 +365,56 @@ de algumas características adicionais:
 
 \begin{itemize}
 
-	\item Resistência a colisão: Deve ser computacionalmente difícil encontrar
-		duas entradas distintas \textit{m1} e \textit{m2}, tal que
-		$\mathcal{H}$\textit{(m1)} = $\mathcal{H}$(\textit{m2}). Essas duas
-		entradas são chamadas de colisão hash.
 	\item Resistência a pré-imagem: Dado uma saída \textit{r} deve ser
 		computacionalmente difícil encontrar alguma outra entrada \textit{m},
-		tal que $\mathcal{H}$\textit{(m)} = \textit{r}. Esta propriedade esta
-		relacionada a ser uma função de sentido único.
+		tal que $\mathcal{H}$\textit{(m)} = \textit{r}.
 	\item Resistência a segunda pré-imagem: Dado uma entrada \textit{m1} deve
 		ser computacionalmente difícil encontrar alguma outra entrada
 		\textit{m2}, tal que $\mathcal{H}$\textit{(m1)} =
 		$\mathcal{H}$(\textit{m2})
+	\item Resistência a colisão: Deve ser computacionalmente difícil encontrar
+		duas entradas distintas \textit{m1} e \textit{m2}, tal que
+		$\mathcal{H}$\textit{(m1)} = $\mathcal{H}$(\textit{m2}).
 	\item Pseudo-aleatoriedade: A saída de $\mathcal{H}$ deve ter a propriedade
-		de ser pseudo-aleatoria.
+		de ser pseudoaleatória.
 	\item Efeito avalanche: Caso haja a mudança de apenas um bit em uma
-		determinada entrada, a saída de $\mathcal{H}$ deve ser significadamente
+		determinada entrada, a saída de $\mathcal{H}$ deve ser significativamente
 		diferente.
 
 \end{itemize}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.35]{hash_function}
-	\caption{TODO citar wiki}
-	\label{fig:hash}
+\centering
+\begin{tikzpicture}[auto,node distance=1.5cm, arrow/.style={edge from parent/.style={draw,-latex}},
+	input/.style={rectangle,draw,fill=blue!20},	
+	hash/.style={rectangle,draw,fill=yellow!20},	
+	output/.style={rectangle,draw,fill=red!20},	
+	]
+  
+
+	\node[entity, input, label={[yshift=0.6cm]\textbf{Entrada}}] (node1) {Banana}
+    [grow=up,sibling distance=3cm]
+    child [grow=right, level distance=3cm, arrow] {
+		node[entity, hash] {Função Hash} child { node[entity, output, label={[yshift=0.6cm]\textbf{Resumo}}] {DFC23JDM} }
+	};
+  % Now the 2nd entity (ID=rel2)
+	\node[entity, input] (node2) [below = of node1, draw, align=center]	{A capivara \\ \underline{anda} pelo \\ rio}
+    [grow=up,sibling distance=3cm]
+	child [grow=right, level distance=3cm, arrow] {
+		node[entity, hash] {Função Hash} child { node[entity, output] {4OF9DJMZ} }
+	};
+	\node[entity, input] (node3) [below = of node2, draw, align=center]	{A capivara \\ \underline{nada} pelo \\ rio}
+    [grow=up,sibling distance=3cm]
+    child [grow=right, level distance=3cm, arrow] {
+		node[entity, hash] {Função Hash} child { node[entity, output] {A8R94IJG} }
+	};
+\end{tikzpicture}
+\caption{Elaboração própria sobre funções de resumo}
+\label{fig:hash}
 \end{figure}
 
-As funções de sentido único tem diversas utilidades na área de computação,
-desde na busca de dados em uma estrutura de dados chamado de tabela hash, que
+As funções de resumo tem diversas utilidades na área de computação, desde na
+busca de dados em uma estrutura de dados chamado de tabela hash, que
 possibilita consultas de forma rápida, até na parte de banco de dados, que é
 possível a detecção de registros duplicados ou até mesmo a não integridade de
 determinado dado.
@@ -391,7 +423,7 @@ Na área de criptografia há ainda a utilização em assinaturas digitais, códi
 de autenticação de mensagens, e ainda outras formas de autenticação. Além do
 mais é  muito utilizada em \textit{blockchains}, com sua finalidade em fornecer
 prova de trabalho e outras propriedades como utilizar um endereço sem revelar
-sua chave pública e consequentemente sua privacidade.\cite{hashBlockchain}
+sua chave pública e consequentemente sua privacidade. \cite{hashBlockchain}
 
 \section{Criptografia homomórfica}
 
@@ -400,12 +432,12 @@ publicado com o objetivo de propor um criptossistema em um cenário de aumento
 da utilização de terminais remotos. Neste caso, não seria ideal ter acesso a
 todo o banco de dados cifrados e então decifrá-los para trabalhar os dados.
 Neste contexto, surge o conceito de se operar com dados cifrados e obter-se o
-mesmo resultado caso se estivesse operando em texto plano.\cite{homomorphic}
+mesmo resultado caso se estivesse operando em texto plano. \cite{homomorphic}
 
 Criptografia homomórfica inclui diversos tipos de esquemas de criptografia que
 podem ser executados em diferentes classes de dados cifrados. Os tipos mais
 comuns de homomorfismo em criptografia são parcialmente homomórfico,
-relativamente homomórfico e completamente homomórfico.\cite{survey-homo}
+relativamente homomórfico e completamente homomórfico. \cite{survey-homo}
 
 O nome criptografia homomórfica é derivado do conceito de homomorfismo em
 álgebra abstrata. Um homomorfismo é uma aplicação que preserva a estrutura
@@ -415,71 +447,72 @@ entre duas estruturas algébricas X e Z.
 f : X \longrightarrow Y
 \end{equation}
 
-Seja $\alpha$ uma função de ciframento e $\beta$ uma função de desencriptação
+Seja $\alpha$ uma função de ciframento e $\beta$ uma função de deciframento
 correspondente. Sejam $x1$, $x2$ dados em texto plano. A tupla ($\alpha$,
-$\beta$) é uma cifra homomórfica com o operador $\star$ se a propriedade for
-satisfeita:
+$\beta$) é uma cifra homomórfica com o operador $\star$ se a propriedade abaixo
+for satisfeita:
 
 \begin{equation}
 \beta (\alpha(x1)) \star (\alpha(x2)) = x1 \star x2
 \end{equation}
 
-As operações principais de um esquema homomórfico de criptografia são:
-\textit{KeyGen}, \textit{Encryption}, \textit{Decryption}, \textit{Eval}.
-\textit{KeyGen} é a operação para criar uma chave pública e outra privada em uma
-versão de criptografia assimétrica e a criação de uma chave única em modelo
-simétrico. \textit{KeyGen}, \textit{Encryption}, \textit{Decryption} não são
-diferentes de suas funções em seus modelos tradicionais.  Entretanto,
-\textit{Eval} é uma operação específica de sistemas homomórficos, que tem como
-entrada e saída textos cifrados, adicionalmente, o dado cifrado resultante não
-deve aumentar de tamanho, caso contrário, haveria um limite de operações
-possíveis.\cite{survey-homo}
+As operações principais de um esquema homomórfico de criptografia são: Geração
+de chaves, Cifrar, Decifrar e \textit{Eval}. Geração de chaves, Cifrar,
+Decifrar não são diferentes de suas funções em seus modelos tradicionais.
+Entretanto, \textit{Eval} é uma operação específica de sistemas homomórficos,
+que tem como entrada e saída textos cifrados, como por exemplo a adição de dois
+textos cifrados.  Adicionalmente, o dado cifrado resultante não deve aumentar
+de tamanho, caso contrário, haveria um limite de operações possíveis, dado que
+seu tamanho iria crescer até um momento onde seria inviável armazená-lo.
+\cite{survey-homo}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{crypto-homo}
-	\caption{Imagem tirada do paper ACAR et al., 2018.}
+	\caption{Cenário de arquitetura cliente-servidor, retirada de \cite{survey-homo}}
 	\label{fig:crypto-homo}
 \end{figure}
 
 
 \section{Blockchain}
 
-Da sua tradução literal, blockchain significa cadeia de blocos. De  maneira
-simplista, pode ser definido como um bloco ligado com o anterior, gerando assim
-uma cadeia. Estes blocos carregam as informações que são importantes para a
-rede. No caso de uma criptomoeda como \textit{Bitcoin}, cada bloco teria dados
-sobre as transações realizadas naquele dado instante, ou seja, uma definição do
-estado atual do sistema.
+Da sua tradução literal, blockchain significa cadeia de blocos. De maneira
+simplista, pode ser definido como um bloco ligado com o anterior através de
+resumos criptográficos, gerando assim uma cadeia. Estes blocos carregam as
+informações que são importantes para a rede. No caso de uma criptomoeda como
+\textit{Bitcoin}, cada bloco teria dados sobre as transações realizadas naquele
+dado instante, ou seja, uma definição do estado atual do sistema.
 
 A concepção da blockchain foi feita para ser um encadeamento de registros
-imutáveis, distribuídos e públicos. Os registros são imutáveis devido ao tipo de
-encadeamento que é feito com os blocos, em que o ponteiro para o bloco anterior
-é projetado para garantir a imutabilidade dos dados. Como é um protocolo
-distribuído, todas as informações não estão armazenadas em um servidor central e
-não há um nodo mestre que coordene a rede. Justamente o oposto disso, a
-blockchain está replicada em todos os nodos participantes da rede, que podem
-estar espalhados pelo mundo inteiro. Além de ser um esquema distribuído, o
-referido também é público, pois não há como censurar uma parte de participar da
-rede, basta o interessado ter acesso a internet que ele poderá realizar a sua
-cópia da base de dados.\cite{blockchain}
+imutáveis, distribuídos e públicos. Os registros são imutáveis devido ao tipo
+de encadeamento que é feito com os blocos, em que o ponteiro para o bloco
+anterior é feito com resumos criptográficos com regras específicas. De maneira
+que para alterar esse resumo deve-se dedicar grande poder computacional, que na
+maioria dos casos, torna-se inviável. Como é um protocolo distribuído, todas as
+informações não estão armazenadas em um servidor central e não há um nodo
+mestre que coordene a rede. Justamente o oposto disso, a blockchain está
+replicada em todos os nodos participantes da rede, que podem estar espalhados
+pelo mundo inteiro. Além de ser um esquema distribuído, o referido também é
+público, pois não há como censurar uma parte de participar da rede, basta o
+interessado ter acesso a internet que ele poderá realizar a sua cópia da base
+de dados. \cite{blockchain}
 
-\subsection{Cadeia de blocos}
-A estrutura de um bloco pode variar de acordo com a necessidade e propósitos da
-cadeia de blocos, vamos tomar como exemplo a cadeia do \textit{Bitcoin}, visto
-que foi a primeira a ser criada e até hoje é mais importante e mais utilizada.
-A estrutura de um bloco é basicamente a seguinte:
+\subsection{Cadeia de blocos} A estrutura de um bloco pode variar de acordo com
+a necessidade e propósitos da cadeia de blocos, vamos tomar como exemplo a
+cadeia do \textit{Bitcoin}, visto que foi a primeira a ser criada e até hoje é
+mais popular. A estrutura de um bloco é basicamente a seguinte:
 
 \begin{itemize}
-	\item Constante de valor 0xD9B4BEF9.
+	\item Constante de valor 0xD9B4BEF9, utilizada para saber se está na rede
+		de teste ou produção.
 	\item Tamanho do bloco em \textit{bytes}.
 	\item Cabeçalho do bloco, que consiste em 6 itens.
-	\item Quantidade de transações no bloco.
+	\item Quantidade de transações no bloco, limitada a \textit{1MB}.
 	\item Transações em si.
 \end{itemize}
 
 Vale notar que as transações detêm uma estrutura de dados que permite a criação
-de \textit{scripts}, além de permitir a inserção de dados arbitrários. \\
+de regras programáveis, além de permitir a inserção de dados arbitrários.
 
 Já a estrutura do cabeçalho do bloco é composta por:
 \begin{itemize}
@@ -499,7 +532,7 @@ esse desafio matemático é chamado de mineração, e a cada bloco que passa se
 torna mais difícil, entretanto, uma vez que sua solução é conhecida, é
 extremamente fácil de validar sua corretude. Há diversas soluções possíveis para
 determinado bloco, porém é necessário que apenas uma seja
-encontrada.\cite{Antonopoulos}
+encontrada. \cite{Antonopoulos}
 
 Como a mineração de blocos se torna cada vez mais difícil, a probabilidade de
 algum atacante conseguir reescrever um bloco anterior é mínima, visto que ele
@@ -509,7 +542,7 @@ ainda todos os sucessores dele.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{blockchain}
-	\caption{Imagem tirada do whitepaper do Bitcoin.}
+	\caption{Estrutura da cadeia de blocos do Bitcoin, retirado de \cite{nakamoto2012bitcoin}}
 	\label{fig:blockchain}
 \end{figure}
 
@@ -523,30 +556,30 @@ lei comum, que muitas vezes torna-se inviável para determinados casos.
 Idealizado no ano de 1997 por Nick Szabo, os contratos inteligentes foram
 pensados como uma substituição natural dos contratos realizados no cotidiano.
 Em analogia, a ideia é utilizar de software e hardware para a tomada de
-decisões, como em uma máquina automática de vendas de refrigerante. Os
-contratos inteligentes vão além da máquina de vendas, uma proposta de
-utilização de contratos em todos os tipos de propriedade e controlado do meio
-digital. Eles possibilitam a verificação desse contrato de maneira dinâmica e
-proativa.\cite{szabo-smart}
+decisões, como em uma máquina automática de vendas de refrigerante
+\cite{szabo-smart}. Os contratos inteligentes vão além da máquina de vendas,
+uma proposta de utilização de contratos em todos os tipos de propriedade e
+controlado do meio digital. Eles possibilitam a verificação desse contrato de
+maneira dinâmica e proativa.
 
 Já no surgimento da blockchain descrito no protocolo do Bitcoin, havia espaço
 para criação de \textit{scripts} nas transações. Entretanto, estes
 \textit{scripts} foram concebidos para serem simples, com a ideia de não
 sobrecarregar a rede com a execução de códigos complexos. Um exemplo de
 \textit{script} trivial seria o congelamento de fundos até certa data futura.
-Como não são  permitido \textit{loops} em sua estrutura, isto impacta na não
-Turing completude da linguagem de \textit{script}.\cite{nakamoto2012bitcoin}
+Como não são  permitido \textit{loops} em sua estrutura, isto impacta na
+turing-incompletude da linguagem de \textit{script}. \cite{nakamoto2012bitcoin}
 
 Almejando-se ter \textit{scripts} mais potentes, foi criado o conceito de
 contratos inteligentes, que são Turing-completos e ainda podem guardar o estado
 atual do sistema.  Assim, possibilita a criação de aplicações extremamente mais
-complexas.\cite{ethereum}
+complexas. \cite{ethereum}
 
 A \textit{blockchain Ethereum} foi criada juntamente com sua \textit{Virtual
 Machine}, a EVM\sigla{EVM}{\emph{Ethereum Virtual Machine}} como é chamada, que
 utiliza de um vasto conjunto de instruções para executar tanto tarefas
 específicas quanto gerais. Para armazenar os conjuntos de instruções de forma
-eficiente, a EVM os codifica em \textit{bytecodes}.\cite{wood2014yellow}
+eficiente, a EVM os codifica em \textit{bytecodes}. \cite{wood2014yellow}
 
 Consequentemente com a criação do conjunto de instruções, houve a criação da uma
 linguagem de programação de alto nível que é compilada para esses
@@ -555,71 +588,63 @@ linguagem simples de ser entendida e reproduzida para quem já têm os
 conhecimentos de programação de outras linguagens padrões de alto nível.
 \cite{solidity}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.3]{ethereum}
-	\caption{Imagem tirada do whitepaper Ethereum}
-	\label{fig:ethereum}
-\end{figure}
-
 Desta forma, é possível criar aplicações que rodam de forma descentralizada e
 que podem ter seu estado atual verificado por qualquer participante do sistema
 em qualquer momento além de garantir as propriedades da blockchain.
 
-\chapter{Helios}
+Por exemplo, uma simples operação onde você utiliza de \textit{loops} para
+iterar sobre um dado não é possível em um \textit{script} do \textit{Bitcoin},
+já em contratos \textit{Solidity} é possível.
 
-\section{Introdução}
-
-Neste capítulo será apresentado o software Helios voting, em que este trabalho
-se baseia para criar um módulo \textit{blockchain} para realizar a prova de
-existência das informações importantes para a verificação e auditoria de uma
-eleição neste software.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[scale=0.6]{ethereum}
+	\caption{Transição de estados em contratos inteligentes, retirado de \cite{ethereum}}
+	\label{fig:ethereum}
+\end{figure}
+\chapter{Sistema de votação eletrônica Helios}
 
 \section{Sobre}
 
-Helios voting é um software de código aberto desenvolvido por Ben Adida. Foi
-desenvolvido com o intuito de ser o primeiro aplicativo baseado na
-\textit{Web}, de auditoria aberta ao público. De maneira que qualquer um
-poderia rodar sua própria eleição, e quem estiver disposto a observar o
-processo e auditar o processo inteiro conseguiria também. É concebido para ser
-usado em clubes locais, eleições para reitor de universidade e comunidades
-online. De maneira votos secretos são necessários e a coerção não é um grande
-problema.\cite{benAdida}
+Helios voting é um software de código aberto desenvolvido majoritariamente por
+Ben Adida\cite{benAdida}. Foi criado com o intuito de ser o primeiro sistema de
+votação eletrônica baseado na \textit{Web}, de auditoria aberta ao público. De
+maneira que qualquer um poderia rodar sua própria eleição, e quem estiver
+disposto a observar o processo e auditar o processo inteiro conseguiria também.
+É concebido para ser usado em clubes locais, eleições para reitor de
+universidade e comunidades online. De maneira que os  votos devem ser secretos
+e a coerção dos participantes não é um grande problema. \cite{benAdida}
 
-O código do front-end foi escrito em \textit{JavaScript} e \textit{HTML}, e a
-parte do servidor foi desenvolvida em \textit{Python} com o framework para
-aplicações web \textit{Django}. 
+A interface de interação com o usuário foi escrita em \textit{JavaScript} e
+\textit{HTML}, e a parte do servidor foi desenvolvida em \textit{Python} com o
+framework para aplicações web \textit{Django}. 
 
 Algumas características do esquema proposto:
 
-\begin{itemize}
+Eleições com baixa coerção: Votações online e por carta sempre tiveram um
+problema de coerção, visto que, nessa abordagem é possível que na hora do voto,
+há outra pessoa forçando por meio de ameaças ou força física a maneira que a
+pessoa vote. Alguns sistemas possibilitem que o voto seja feito mais de uma vez
+para mitigar esse problema, assim, a coerção deveria ocorrer durante todo o
+período da eleição para ter sucesso. A abordagem do Helios é que o último voto
+é sempre o válido para a eleição, de forma que se a eleição for feita em
+período de intervalo de dias, é difícil ter uma coerção de uma maioria
+significativa para o resultado. Dessa forma, essa abordagem visa apenas
+eleições onde o que está jogo não é algo tão crítico, como uma votação para o
+presidente de um país.
 
-	\item Eleições com baixa coerção: Votações online e por carta sempre
-		tiveram um problema de coerção, visto que, nessa abordagem é possível
-		que na hora do voto, há outra pessoa forçando por meio de ameaças ou
-		força física a maneira que a pessoa vote. Alguns sistemas possibilitem
-		que o voto seja feito mais de uma vez para mitigar esse problema,
-		assim, a coerção deveria ocorrer durante todo o período da eleição para
-		ter sucesso. A abordagem do Helios é que o último voto é sempre o
-		válido para a eleição, de forma que se a eleição for feita em período
-		de intervalo de dias, é difícil ter uma coerção de uma maioria
-		significativa para o resultado. Dessa forma, essa abordagem visa apenas
-		eleições onde o que está jogo não é algo tão crítico, como uma votação
-		para o presidente de um país.
-	\item Não confie em ninguém para integridade, confie no Helios para
-		privacidade: Criptossistemas de voto eletrônico possuem duas
-		propriedades que devem proteger, tanto a privacidade do voto, quanto a
-		integridade. Num modelo de ataque onde todas as partes do sistema é
-		corrompido e atacado, existe o entendimento que não há como proteger as
-		duas coisas ao mesmo tempo. A abordagem do Helios acredita que é mais
-		importante que a integridade seja garantida. Dessa forma, há a
-		necessidade que um conjunto minimo de administradores/apuradores sejam
-		honestos para que a privacidade não seja comprometida, entretanto mesmo
-		que todos apuradores sejam maliciosos, isso não afeta a parte de
-		auditoria do sistema. Portanto há a necessidade de se confiar na infraestrutura do Helios
-		para que a privacidade seja garantida.
+Não confie em ninguém para integridade, confie no Helios para privacidade:
+Criptossistemas de voto eletrônico possuem duas propriedades que devem
+proteger, tanto a privacidade do voto, quanto a integridade. Num modelo de
+ataque onde todas as partes do sistema é corrompido e atacado, existe o
+entendimento que não há como proteger as duas coisas ao mesmo tempo. A
+abordagem do Helios acredita que é mais importante que a integridade seja
+garantida. Dessa forma, há a necessidade que um conjunto minimo de
+administradores/apuradores sejam honestos para que a privacidade não seja
+comprometida, entretanto mesmo que todos apuradores sejam maliciosos, isso não
+afeta a parte de auditoria do sistema. Portanto há a necessidade de se confiar
+na infraestrutura do Helios para que a privacidade seja garantida.
 
-\end{itemize}
 
 \section{Processo de voto}
 
@@ -662,10 +687,11 @@ gerados pela eleição para verificar que o embaralhamento, decifragem e contage
 estão corretos.
 
 Vale ressaltar aqui que o voto individual nunca é decifrado de maneira
-individual, uma vez que apenas os votos cifrados são encaminhados para o servidor,
-então é utilizado de criptografia homomórfica para combinar todos os votos
-cifrados em uma coisa só, a contagem,  e apenas a contagem é decifrada, não
-revelando nenhuma informação adicional, a não ser pelo resultado.
+individual, uma vez que apenas os votos cifrados são encaminhados para o
+servidor, então é utilizado de criptografia homomórfica para combinar todos os
+votos cifrados em um elemento, representando a contagem, e apenas este elemento
+é decifrado, não revelando nenhuma informação adicional, a não ser pelo
+resultado.
 
 \section{Informações relevantes para auditoria}
 
@@ -686,10 +712,12 @@ pseudônimos. Todas as informações são disponibilizadas em formato JSON.
 
 Exemplo de lista de eleitores
 
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[numbers=none]
 [
    {
-      "id":"vinicius.macelai@gmail.com",
+      "id":"vini@gmail.com",
       "name":"Vinicius Macelai",
       "type":"email",
       "uuid":"60435862-65e3-11de-8c90-001b63948875"
@@ -703,6 +731,8 @@ Exemplo de lista de eleitores
    ...
 ]
 \end{lstlisting}
+	\caption{Exemplo de eleitores em JSON}
+\end{figure}
 
 Há também um \textit{endpoint} que disponibiliza todas as questões da eleição,
 essa também é uma informação relevante para auditoria, visto que, uma vez
@@ -712,6 +742,7 @@ histórico para comparar com o que realmente aconteceu.
 
 Exemplo da estrutura das questões
 
+\begin{figure}[H]
 \begin{lstlisting}[numbers=none]
 
 [
@@ -753,6 +784,8 @@ Exemplo da estrutura das questões
 ]
 
 \end{lstlisting}
+	\caption{Exemplo das questões em JSON}
+\end{figure}
 
 Já para os votos, há um outro \textit{endpoint} que revela algumas informações
 sobre os votos, não há como acessar o voto de maneira clara, nem mesmo cifrado.
@@ -763,6 +796,9 @@ identificador do eleitor na tabela de votantes, para saber que nenhuma pessoa
 que não era apta a votar, votou.
 
 Exemplo da estrutura de um voto.
+
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[numbers=none]
 
 [
@@ -776,6 +812,8 @@ Exemplo da estrutura de um voto.
 ]
 
 \end{lstlisting}
+	\caption{Exemplo do voto em JSON}
+\end{figure}
 
 Para os dados gerais da eleição, há um \textit{endpoint} que disponibiliza
 várias informações sobre a votação. Como o nome da votação, sua descrição, a
@@ -785,11 +823,12 @@ início e fim da votação. São várias informações que são úteis em uma au
 pois é possível verificar se alguma coisa não aconteceu conforme o que o
 público geral esperasse.
 
-
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[numbers=none]
 
 {
-   "cast_url":"https://e-democracia.ufsc.br/helios/elections/e64c77be-e6dd-11e9-9ed0-0050568db9bc/cast",
+   "cast_url":"https://localhost/helios/elections/e64c77be-e6dd-11e9-9ed0-0050568db9bc/cast",
    "description":"",
    "frozen_at":"2019-10-10 13:56:23.825227+00:00",
    "name":"teste",
@@ -799,14 +838,6 @@ público geral esperasse.
 	  400801774349230448173738257193393756872447384
 	  710602991504015078403188220609028693866146445
 	  889649421527398954788920114485735261105857223
-	  657873431950512804260237286457042655085520144
-	  811174657987181124911478167430906269344244236
-	  869744997064823262188000170953514304791366143
-	  288328715000342980239222936158360868664324334
-	  972779197624724794861893042386618041055845827
-	  260662711127004009120307358023890530399447220
-	  293078320747239457849850776470319128824954765
-	  989999713116613025970060443389123229818234840
 	  317594745028443341126596678913102457362954604
 	  8637848902243503970966798589660808533",
 	  "p":"1632863208493301000238405503380545732960
@@ -816,23 +847,12 @@ público geral esperasse.
 	  424363851844255382397348299526730404432677704
 	  766295748026939132278937838461942859644644698
 	  469430618764476746246096562258008756433921263
-	  177581789595840901667639897567126617963789855
-	  768731707617721884323315069515788106125705301
-	  913307854592898356222139631316962247550981844
-	  266104701843626480690102396623671836720471075
-	  593589901375030610773800236413791742659573740
 	  387111418775080434656473125060919684663818390
 	  3982387884578266136503697493474682071",
 	  "q":"6132956624834290129254387276997895087063
 	  3559608669337131139375508370458778917",
 	  "y":"6674849462819707761425540060443321142147
-	  065374239459835165544825432222893216813 43161
 	  701912833679191861159511407066056382418705054
-	  8693746028485084245830920486320377 0459478003
-	  535479349067299809007231395222615550077332803
-	  980377694907673841794062958485957445752678169
-	  178233222755221822716717204325716622981245085
-	  764017396596177317480111639095637201353649046
 	  648287394475477034301481505230258754780469801
 	  912243347674672857224825271821914019222712742
 	  428353419223563690785390840589005731613775466
@@ -849,6 +869,8 @@ público geral esperasse.
 }
 
 \end{lstlisting}
+	\caption{Exemplo dos dados gerais da votação em JSON}
+\end{figure}
 
 Assim, o conjunto dessas informações, fornece uma transparência maior para o
 processo de votação, de forma que uma auditoria externa poderia verificar se
@@ -864,7 +886,6 @@ modificada, o atacante então altera o horário de congelamento para uma data
 futura, enquanto isso, ele pode realizar alterações nas configurações da
 votação, como a exclusão ou adição de eleitores, de modo malicioso.
 
-
 \chapter{Desenvolvimento}
 
 Este capítulo será abordado a criação do esquema e desenvolvimento do projeto
@@ -874,11 +895,11 @@ proposto.
 
 Como mostrado no capítulo anterior, o Helios fornece diversas informações
 relevantes para a auditoria de um processo de votação. Para acessar essas
-informações, foram criados \textit{endpoits} para fornecer as informações, de
-forma que, apenas as relevantes são buscadas, evitando redundâncias e
-informações desnecessárias. Foi decidido de não alterar os \textit{endpoits}
-originais para não causar uma pertubação no sistema. Para os votos, não foi
-necessário nenhuma mudança no que já havia. Os criados foram:
+informações, foram criados \textit{endpoints} para fornece-las, de forma que,
+apenas as relevantes são buscadas, evitando redundâncias e informações
+desnecessárias. Foi decidido de não alterar os \textit{endpoints} originais
+para não causar uma pertubação no sistema, de forma a causar algum erro. Para
+os votos, não foi necessário nenhuma mudança no que já havia. Os criados foram:
 
 \begin{itemize}
 	\item GET `elections/<election\_uuid>/blockchain' retorna 
@@ -896,10 +917,14 @@ o \textit{keystore}, que é um arquivo em formato JSON, com os dados de uma
 carteira \textit{Ethereum}, contendo a chave privada, a cifra usada para
 guardar a chave privada e os demais atributos.
 
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[language=Python, numbers=none]
 KEYSTORE = "/home/Helios/keystore.json"
 KEYSTORE_PASSWORD = "TXv?m!U;9Q#%KMa"
 \end{lstlisting}
+	\caption{Configuração do \textit{Keystore}}
+\end{figure}
 
 Esse \textit{keystore} será usado para criar e assinar as transações e popular
 os contratos com os dados da votação. Vale notar que a carteira já deve contar
@@ -909,10 +934,14 @@ Além de uma outra variável de ambiente que contem o endereço do contrato
 inteligente. De forma ao acessar esse endereço, irá ser possível consultar o
 estado atual do contrato.
 
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[language=Python, numbers=none]
 	CONTRACT_ADRESS = "0x692a70D2e424a56D2C6C27aA97D1a
 								86395877b3A"
 \end{lstlisting}
+	\caption{Endereço do contrato}
+\end{figure}
 
 \section{Contratos inteligentes}
 
@@ -925,6 +954,8 @@ respeitada, de forma que seu nome e email não devem divulgados, para isso,
 bastaria uma pequena mudança no contrato a seguir, alterando o nome para um
 pseudônimo e a retirada do email.
 
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[language=Solidity]
 contract Voters{
     
@@ -941,6 +972,8 @@ contract Voters{
     }
 }
 \end{lstlisting}
+	\caption{Contrato dos eleitores}
+\end{figure}
 
 Uma vez populado os eleitores no Helios, bastaria populá-los no contrato
 também. Como já visto anteriormente, a lista de eleitores não pode ser
@@ -951,17 +984,19 @@ constando uma fraude.
 \subsection{Votos}
 
 O contrato dos votos contêm uma peculiaridade, dado que será o único contrato
-que não será populado pelo servidor Helios, visto que este será populado ao
-decorrer do processo, diferente dos demais, os quais serão populados
-previamente.  Essa decisão foi tomado levando em conta os seguintes aspectos,
-caso o servidor do Helios fosse invadido, um atacante poderia não publicar o
-voto, ou até mesmo, mudar o hash do voto para causar alguma confusão. 
+que não será populado pelo servidor Helios. Essa decisão foi tomado levando em
+conta os seguintes aspectos, caso o servidor do Helios fosse invadido, um
+atacante poderia não publicar o voto, ou até mesmo, mudar o hash do voto para
+causar alguma confusão. 
 
 A premissa é que o eleitor é honesto, tanto o esquema proposto pelo Helios,
 quanto o desse trabalho, não há como garantir que caso algum votante alegue que
 o seu voto não foi computado, ou aquele voto associado a ele não foi ele que
-emitiu, não há como garantir ou provar nenhuma informação.
+emitiu, não há como garantir ou provar nenhuma informação usando apenas o
+Helios, nem com o esquema proposto neste trabalho. 
 
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[language=Solidity]
 contract Votes {
     
@@ -979,11 +1014,13 @@ contract Votes {
     
 }
 \end{lstlisting}
+	\caption{Contrato dos votos}
+\end{figure}
 
 Vale notar aqui que o voto cifrado não é publicado, apenas o seu hash. Essa
 decisão foi tomada pelo fato que a criptografia utilizada nos dias de hoje,
 como ElGamal pode não ser segura no futuro, como já temos exemplos de
-primitivas criptográficas no passado. CITAR PAPER
+primitivas criptográficas no passado. \cite{breaking}
 
 Partindo da premissa que o eleitor é honesto, então, isso seria uma prova que o
 seu voto existiu em dado momento, e que, se ele não estiver na hora da apuração
@@ -997,9 +1034,10 @@ Além do mais irá conter as informações gerais sobre a votação, como o seu
 \textit{uuid}, que é seu identificador único, o nome da votação, a URL que será
 usada para votar, a data de criação, horário que irá abrir e fechar para os
 votos, além de conter todas as perguntas e respostas e a chave pública da
-votação, que é utilizada na hora da contagem e auditoria do votos, em provas de
-conhecimento zero.
+votação, que é utilizada na hora da contagem e auditoria do votos.
 
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[language=Solidity]
 contract Election {
     
@@ -1044,7 +1082,7 @@ contract Election {
         result_contract = new Result();
     }
     
-    function addQuestion(string memory _question, string[] memory _anwsers) public {
+    function addQuestion(string memory _question, string[] memory _answers) public {
         questions.push(Question(_question, _anwsers));
     }
     
@@ -1052,18 +1090,25 @@ contract Election {
 
 
 \end{lstlisting}
+	\caption{Contrato do eleição completa}
+\end{figure}
 
-Assim que configurado toda a votação, esse contrato seria populado com todos os dados da eleição
-
+Assim que configurado toda a votação, esse contrato seria populado com todos os
+dados da eleição a partir dos \textit{endpoints} criados.
 
 \subsection{Resultado}
 
-O contrato do resultado é para divulgar o resultado individual de cada
-pergunta, além do horário que foi divulgado, e o mais importante é o hash dos
-eleitores, pois como o contrato dos eleitores foi populado previamente, é
-possível calcular novamente, para saber que apenas os votantes que tinham
-direito de votar, votaram.
+O contrato do resultado foi criado para divulgar o resultado individual de cada
+pergunta, além do horário que foi divulgado e o hash dos eleitores. De maneira
+que é possível verificar se as questões foram alteradas e também conferir que o
+horário final da eleição estava de acordo com o previsto.
 
+A informação mais importante é o hash dos eleitores, pois como o contrato dos
+eleitores foi populado previamente, é possível calcular o hash novamente, desta
+forma, é possível saber que apenas os votantes válidos participaram da eleição.
+
+\begin{figure}[H]
+\centering
 \begin{lstlisting}[language=Solidity]
 contract Result {
     
@@ -1089,6 +1134,8 @@ contract Result {
     }
 }
 \end{lstlisting}
+	\caption{Contrato do resultado}
+\end{figure}
 
 \section{Fluxo de uma eleição}
 
@@ -1102,7 +1149,7 @@ No painel de administração de uma eleição, que só pode ser acessada por um
 usuário com privilégios, foi adicionado um botão para publicar os dados da
 eleição na blockchain.
 
-\begin{figure}[]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{helios-1}
 	\caption{Painel administrativo de uma eleição}
@@ -1121,7 +1168,7 @@ transação para o contrato da eleição.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{helios-voting}
-	\caption{Confirmação do voto}
+	\caption{Confirmação do voto em uma eleição}
 	\label{fig:helios-2}
 \end{figure}
 
@@ -1155,7 +1202,7 @@ Nesta seção, estima-se os custos de transação cobrados para rodar na rede
 principal da \textit{Ethereum}, de forma para rodar este protótipo.
 Primeiramente, é estimado o custo individual de cada contrato, já que cada um
 tem suas peculiaridades. Então é estimado e analisado em uma eleição hipotética
-com mil eleitores. 
+com um número variável de eleitores.
 
 Os construtores são as chamadas mais custosas, uma vez que são responsáveis por
 instanciar memória não volátil na rede \textit{Ethereum}, que são as instruções
@@ -1170,56 +1217,30 @@ preço do \textit{Gas} utilizado em 25 \textit{gwei}, e o preço de um
 
 \begin{table}[htb]
 \centering
-\begin{tabular}{||c|c|c||}
+\begin{tabular}{||c|c|c|c||}
 \hline
-	\textbf{Método}        & \textbf{Gas}    & \textbf{Dólar}  \\  [0.2ex] \hline \hline
-constructor   & 571316 & \$2.41 \\
-addQuestion   & 84624  & \$0.35 \\ 
-setVotersHash & 87482  & \$0.36 \\ 
-setReleasedAt & 42164  & \$0.17 \\ \hline
+\textbf{Contrato}   & \textbf{Método}        & \textbf{Gas}    & \textbf{Dólar}  \\  [0.2ex] \hline \hline
+Resultado & constructor   & 571316 & \$2.41 \\
+Resultado & ddQuestion   & 84624  & \$0.35 \\ 
+Resultado & setVotersHash & 87482  & \$0.36 \\ 
+Resultado & setReleasedAt & 42164  & \$0.17 \\
+\hline
+Votos &		constructor & 389806 & \$1.64 \\ 
+Votos & addVote     & 128449 & \$0.54 \\
+\hline
+Eleitores	&	constructor & 508588 & \$2.14 \\ 
+Eleitores & addVoter    & 151882 & \$0.64 \\ 
+\hline
+Eleição & 		constructor & 2684091 & \$11.34 \\ 
+Eleição & addQuestion & 129270  & \$0.54  \\
+	\hline
 \end{tabular}
-\caption{Custos do contrato resultado}
+\caption{Custos dos métodos dos contratos}
 \label{tab:my-table}
 \end{table}
 
-\begin{table}[htb]
-\centering
-\begin{tabular}{||c|c|c||}
-		\hline
-		\textbf{Método} & \textbf{Gas} & \textbf{Dólar}  \\ [0.2ex] \hline \hline
-		constructor & 389806 & \$1.64 \\ 
-		addVote     & 128449 & \$0.54 \\ \hline
-	\end{tabular}
-	\caption{Custos do contrato votos}
-	\label{tab:my-table}
-\end{table}
-
-\begin{table}[htb]
-	\centering
-	\begin{tabular}{||c|c|c||}
-		\hline
-		\textbf{Método}  & \textbf{Gas} & \textbf{Dólar}  \\ [0.2ex] \hline \hline
-		constructor & 508588 & \$2.14 \\ 
-		addVoter    & 151882 & \$0.64 \\ \hline
-	\end{tabular}
-	\caption{Custos do contrato votantes}
-	\label{tab:my-table}
-\end{table}
-
-\begin{table}[htb]
-	\centering
-	\begin{tabular}{||c|c|c||}
-		\hline
-		\textbf{Método} & \textbf{Gas}  & \textbf{Dólar}   \\ [0.2ex] \hline \hline
-		constructor & 2684091 & \$11.34 \\ 
-		addQuestion & 129270  & \$0.54  \\ \hline
-	\end{tabular}
-	\caption{Custos do contrato eleição}
-	\label{tab:my-table}
-\end{table}
-
 Agora, será estimado uma votação hipotética, composta por mil eleitores, três
-questão e levando em consideração que a 10\% dos eleitores tenham votado duas
+questão e levando em consideração que 10\% dos eleitores tenham votado duas
 vezes, visto que é permitido votar mais de uma vez e é considerado apenas o
 último. As chamadas para os contratos seriam a seguinte:
 
@@ -1234,7 +1255,7 @@ vezes, visto que é permitido votar mais de uma vez e é considerado apenas o
 \end{enumerate}
 
 Considerando os valores calculados nas tabelas anteriores temos um total de
-\textbf{1248.54 Dólares} para rodar todo processo, até mesmo a divulgação do
+\textbf{US\$ 1248.54} para rodar todo processo, até mesmo a divulgação do
 resultado.
 
 Fica claro que o maior custo está associado a adicionar os dados dos eleitores
@@ -1244,7 +1265,7 @@ gráfico a seguir.
 
 \begin{tikzpicture}{}
 	\begin{axis}[
-		symbolic x coords={1000, 5000, 10000},
+		symbolic x coords={1000, 5000, 10000, 50000},
 		xtick=data,
 		ylabel={Eleitores},
 		xlabel={Dólares},
@@ -1261,6 +1282,7 @@ gráfico a seguir.
 			(1000,   1248)
 			(5000,  6240)
 			(10000, 12480)
+			(50000, 62400)
 		};
 	\end{axis}
 \end{tikzpicture}
@@ -1282,9 +1304,9 @@ votação, sendo um caso de uso legítimo.
 
 A pergunta da pesquisa pode ser respondida a partir dos dados obtidos do modelo
 construído, conjuntamente com as hipóteses propostas, de forma que foi criado
-um módulo utilizando \textit{blockchain} para garantir auditabilidade. Foi feito
-estudo do custo para o volume de dados. Além de discutido se esse modelo é
-economicamente viável.
+um módulo utilizando \textit{blockchain} para garantir auditabilidade. Foi
+feito estudo do custo para o volume de dados. Além de ter discutido se esse
+modelo é economicamente viável.
 
 \section{Trabalhos futuros} 
 
